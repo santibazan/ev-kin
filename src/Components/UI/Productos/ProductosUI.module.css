@@ -1,0 +1,291 @@
+/* ---------- Mobile-first ---------- */
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 880px;
+  border-radius: 28px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #e7e7ea;
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: 28px;
+  background: linear-gradient(120deg, #9ca0a6, #e7e8ea 45%, #9ca0a6);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.card:hover {
+  box-shadow: 0 24px 48px rgba(20, 20, 20, 0.1);
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.media {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fafafa;
+  padding: 32px;
+  overflow: hidden;
+}
+
+.mediaGlow {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(156, 160, 166, 0.35), rgba(231, 232, 234, 0) 70%);
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+.badge {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #141414;
+  color: #ffffff;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+.discountChip {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  padding: 6px 11px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid #dcdce0;
+  color: #141414;
+  font-size: 11px;
+  font-weight: 800;
+  z-index: 2;
+}
+
+.imageFrame {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imageFrame img,
+.imageFrame svg {
+  width: 100%;
+  height: auto;
+  max-height: 280px;
+  object-fit: contain;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 28px 28px 32px;
+  border-top: 1px solid #f0f0f1;
+  min-width: 0;
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.title {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #141414;
+}
+
+.tagline {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #6b6b70;
+}
+
+.specList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.specItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid #e7e7ea;
+  background: #fafafa;
+  font-size: 12px;
+  font-weight: 600;
+  color: #3a3a3e;
+}
+
+.specIcon {
+  display: inline-flex;
+  color: #141414;
+}
+
+.specIcon svg {
+  width: 13px;
+  height: 13px;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 4px;
+  padding-top: 20px;
+  border-top: 1px solid #f0f0f1;
+}
+
+.priceBlock {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.originalPrice {
+  font-size: 13.5px;
+  color: #9a9a9f;
+  text-decoration: line-through;
+  white-space: nowrap;
+}
+
+.price {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #141414;
+  white-space: nowrap;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.primaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 22px;
+  border-radius: 999px;
+  border: none;
+  background: #141414;
+  color: #ffffff;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.primaryBtn:hover {
+  background: #2a2a2e;
+}
+
+.primaryBtnIcon {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.25s ease;
+}
+
+.primaryBtn:hover .primaryBtnIcon {
+  transform: translateX(3px);
+}
+
+.secondaryLink {
+  border: none;
+  background: none;
+  padding: 0;
+  color: #141414;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: #b6b6bc;
+  cursor: pointer;
+  transition: text-decoration-color 0.2s ease;
+}
+
+.secondaryLink:hover {
+  text-decoration-color: #141414;
+}
+
+/* ---------- Desktop ---------- */
+
+@media (min-width: 861px) {
+  .card {
+    flex-direction: row;
+  }
+
+  .media {
+    flex: 0 0 340px;
+    padding: 40px;
+  }
+
+  .content {
+    flex: 1;
+    padding: 36px 40px;
+    border-top: none;
+    border-left: 1px solid #f0f0f1;
+    justify-content: center;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .footer {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 14px;
+  }
+}

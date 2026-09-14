@@ -1,0 +1,215 @@
+/* ---------- Mobile-first base styles ---------- */
+
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 14px 20px;
+  background: #ffffff;
+  border-bottom: 1px solid #e7e7ea;
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  gap: 12px;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #141414;
+  flex-shrink: 0;
+}
+
+.logoMark {
+  width: 200px;
+  height: auto;
+  display: block;
+}
+
+.logoText {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #141414;
+  text-transform: uppercase;
+}
+
+/* Botón hamburguesa: visible por default (mobile-first) */
+.menuToggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #141414;
+  cursor: pointer;
+  order: 3;
+}
+
+.menuToggle svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* Nav: oculto por default, se abre como panel debajo del header */
+.nav {
+  display: none;
+  order: 4;
+}
+
+.navOpen {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border-bottom: 1px solid #e7e7ea;
+  box-shadow: 0 12px 24px rgba(20, 20, 20, 0.06);
+  padding: 8px 20px 16px;
+}
+
+.pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 0;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #6b6b70;
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 1px solid #f0f0f1;
+  transition: color 0.2s ease;
+}
+
+.navOpen .pill:last-child {
+  border-bottom: none;
+}
+
+.pill:hover {
+  color: #141414;
+}
+
+.pillActive {
+  color: #141414;
+}
+
+/* Región: se achica un poco en mobile */
+.region {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: transparent;
+  border: 1px solid #dcdce0;
+  color: #3f3f43;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  flex-shrink: 0;
+  order: 2;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.region:hover {
+  border-color: #b6b6bc;
+  background: #fafafa;
+}
+
+.regionIcon {
+  width: 13px;
+  height: 13px;
+  color: #6b6b70;
+}
+
+.regionCaret {
+  width: 9px;
+  height: 9px;
+  color: #9a9a9f;
+}
+
+/* ---------- Desktop (min-width) ---------- */
+
+@media (min-width: 861px) {
+  .header {
+    padding: 0px 32px;
+  }
+
+  .inner {
+    gap: 24px;
+  }
+
+  .logoMark {
+    width: 300px;
+  }
+
+  .logoText {
+    font-size: 17px;
+  }
+
+  .menuToggle {
+    display: none;
+  }
+
+  .nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 34px;
+    position: static;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    order: 2;
+  }
+
+  .pill {
+    padding: 6px 0;
+    border-bottom: none;
+  }
+
+  .pillActive::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 2px;
+    background: linear-gradient(90deg, #9ca0a6, #e7e8ea 45%, #9ca0a6);
+  }
+
+  .region {
+    padding: 8px 14px;
+    font-size: 12.5px;
+    order: 3;
+  }
+
+  .regionIcon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .regionCaret {
+    width: 10px;
+    height: 10px;
+  }
+}

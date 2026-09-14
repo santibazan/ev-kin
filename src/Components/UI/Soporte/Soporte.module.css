@@ -1,0 +1,182 @@
+/* ---------- Mobile-first ---------- */
+
+.section {
+  display: flex;
+  justify-content: center;
+  background: #ffffff;
+  padding: 48px 20px 64px;
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: 44px;
+  width: 100%;
+  max-width: 1120px;
+}
+
+/* ----- Form column ----- */
+
+.formColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  margin: 0 0 12px;
+  font-size: clamp(1.75rem, 7vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #141414;
+}
+
+.subtitle {
+  margin: 0 0 28px;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #6b6b70;
+  max-width: 480px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid #dcdce0;
+  background: #ffffff;
+  color: #141414;
+  font-size: 14px;
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: #9a9a9f;
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: #141414;
+}
+
+.textarea {
+  min-height: 160px;
+  resize: vertical;
+}
+
+.submitBtn {
+  align-self: flex-start;
+  margin-top: 6px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  border: none;
+  background: #141414;
+  color: #ffffff;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.submitBtn:hover {
+  background: #2a2a2e;
+}
+
+/* ----- Info column ----- */
+
+.infoColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.infoHeading {
+  margin: 0 0 12px;
+  font-size: 19px;
+  font-weight: 800;
+  color: #141414;
+}
+
+.infoText {
+  margin: 0 0 28px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #6b6b70;
+  max-width: 420px;
+}
+
+.infoBlock {
+  padding: 18px 0;
+  border-top: 1px solid #e7e7ea;
+}
+
+.infoBlock:last-child {
+  border-bottom: 1px solid #e7e7ea;
+}
+
+.infoLabel {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #141414;
+}
+
+.infoLine {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #6b6b70;
+}
+
+.infoLink {
+  color: #141414;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ---------- Desktop ---------- */
+
+@media (min-width: 861px) {
+  .section {
+    padding: 96px 32px 112px;
+  }
+
+  .grid {
+    flex-direction: row;
+    gap: 80px;
+  }
+
+  .formColumn {
+    flex: 1.2;
+  }
+
+  .infoColumn {
+    flex: 1;
+    padding-top: 4px;
+  }
+
+  .row {
+    flex-direction: row;
+  }
+}
