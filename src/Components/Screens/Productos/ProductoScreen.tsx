@@ -23,7 +23,7 @@ export const ProductosScreen = () => {
         <div className={styles.grid}>
           <ProductosUI
             title="ev-kin Home Pro"
-            description="Con pantalla color y cable conectado para alimentar tu auto eléctrico de forma sencilla."
+            // description="Con pantalla color y cable conectado para alimentar tu auto eléctrico de forma sencilla."
             image={<img src={productoBlanco} alt="ev-kin Home Pro Blanco" />}
             badge="Nuevo"
             originalPrice="USD 540"
@@ -32,7 +32,7 @@ export const ProductosScreen = () => {
 
           <ProductosUI
             title="ev-kin Home Pro (negro)"
-            description="La misma potencia y confiabilidad, en versión negra para combinar con cualquier fachada."
+            // description="La misma potencia y confiabilidad, en versión negra para combinar con cualquier fachada."
             image={<img src={productoNegro} alt="ev-kin Home Pro Negro" />}
             price="USD 458"
           />
