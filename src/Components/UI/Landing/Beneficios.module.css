@@ -1,0 +1,598 @@
+/* ============================================================
+   BenefitsUI — "Por qué elegir ev-kin"
+   Bento asimétrico con ilustraciones vivas. Mobile-first.
+   ============================================================ */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fafafa;
+  padding: 64px 20px 72px;
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+/* ---------------------------------------------- encabezado */
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  max-width: 640px;
+  margin-bottom: 40px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid #dcdce0;
+  background: #ffffff;
+  color: #6b6b70;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.eyebrowDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ac878;
+  box-shadow: 0 0 0 4px rgba(74, 200, 120, 0.16);
+}
+
+.heading {
+  margin: 0;
+  font-size: clamp(1.9rem, 6.4vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  color: #141414;
+  text-wrap: balance;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #6b6b70;
+  max-width: 520px;
+}
+
+/* ---------------------------------------------- grilla */
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  width: 100%;
+  max-width: 1120px;
+}
+
+/* ---------------------------------------------- card */
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 22px;
+  border: 1px solid #e7e7ea;
+  background: #ffffff;
+  isolation: isolate;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px rgba(20, 20, 20, 0.08);
+}
+
+/* Borde que se enciende cerca del cursor. */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  padding: 1px;
+  border-radius: inherit;
+  background: radial-gradient(
+    260px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(74, 200, 120, 0.7),
+    rgba(156, 160, 166, 0.35) 40%,
+    transparent 72%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+/* Foco de luz suave que sigue al cursor por dentro de la card. */
+.spotlight {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(74, 200, 120, 0.08),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.card:hover .spotlight {
+  opacity: 1;
+}
+
+/* La card sin ilustración lleva anillos concéntricos, eco del LED del cargador. */
+.card:not(.hasVisual) {
+  justify-content: flex-end;
+  min-height: 250px;
+}
+
+.card:not(.hasVisual)::after {
+  content: "";
+  position: absolute;
+  top: -70px;
+  right: -70px;
+  z-index: 0;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: repeating-radial-gradient(
+    circle,
+    transparent 0 20px,
+    rgba(156, 160, 166, 0.2) 20px 21px
+  );
+  pointer-events: none;
+}
+
+.visual {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 176px;
+  padding: 20px;
+  background: #fafafa;
+  border-bottom: 1px solid #f0f0f1;
+}
+
+.body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 24px;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: #141414;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #141414;
+}
+
+.cardDescription {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #6b6b70;
+  max-width: 46ch;
+}
+
+/* ---------------------------------------------- ilustración: instalación */
+
+.installSvg {
+  width: 100%;
+  max-width: 340px;
+  height: auto;
+  overflow: visible;
+}
+
+.stroke {
+  fill: #ffffff;
+  stroke: #c9c9cf;
+  stroke-width: 1.5;
+}
+
+.breaker {
+  fill: #eeeef0;
+  stroke: #d4d4d8;
+}
+
+.breakerOn {
+  fill: rgba(74, 200, 120, 0.18);
+  stroke: #4ac878;
+}
+
+.svgLabel {
+  font-family: inherit;
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  fill: #9a9a9f;
+}
+
+.cable {
+  stroke: #d4d4d8;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+/* Tramo verde que recorre el cable: un período completo de guiones = loop sin saltos. */
+.pulse {
+  stroke: #4ac878;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-dasharray: 12 100;
+  stroke-dashoffset: 12;
+  filter: drop-shadow(0 0 4px rgba(74, 200, 120, 0.6));
+  animation: evkinFlow 2.4s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+}
+
+@keyframes evkinFlow {
+  from {
+    stroke-dashoffset: 12;
+  }
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+.charger {
+  fill: #ffffff;
+  stroke: #c9c9cf;
+  stroke-width: 1.5;
+}
+
+.chargerScreen {
+  fill: #eef4f0;
+  stroke: #d4d4d8;
+}
+
+/* El anillo LED se enciende justo cuando llega el pulso. */
+.ledRing {
+  fill: none;
+  stroke: #4ac878;
+  stroke-width: 3;
+  opacity: 0.4;
+  animation: evkinLed 2.4s ease-in-out infinite;
+}
+
+@keyframes evkinLed {
+  0%,
+  78% {
+    opacity: 0.4;
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.55;
+  }
+}
+
+.ledCore {
+  fill: #f4f4f5;
+  stroke: #d4d4d8;
+}
+
+/* ---------------------------------------------- ilustración: soporte */
+
+.support {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.onlinePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid #e4e4e7;
+  background: #ffffff;
+  color: #3a3a3e;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.onlineDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ac878;
+  animation: evkinOnline 2.2s ease-in-out infinite;
+}
+
+@keyframes evkinOnline {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(74, 200, 120, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(74, 200, 120, 0);
+  }
+}
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 250px;
+}
+
+.question {
+  align-self: flex-end;
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 16px 16px 4px 16px;
+  border: 1px solid #e4e4e7;
+  background: #ffffff;
+  color: #3a3a3e;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.bubble {
+  align-self: flex-start;
+  display: inline-flex;
+  gap: 5px;
+  padding: 13px 16px;
+  border-radius: 16px 16px 16px 4px;
+  background: #141414;
+}
+
+.typing {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffffff;
+  opacity: 0.4;
+  animation: evkinTyping 1.2s ease-in-out infinite;
+}
+
+.typing:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.typing:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes evkinTyping {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+/* ---------------------------------------------- ilustración: batería */
+
+.battery {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 4px;
+  width: 100%;
+  max-width: 290px;
+}
+
+.batteryBody {
+  position: relative;
+  display: flex;
+  gap: 5px;
+  height: 60px;
+  padding: 6px;
+  border-radius: 11px;
+  border: 2px solid #c9c9cf;
+  background: #ffffff;
+}
+
+.cell {
+  flex: 1;
+  border-radius: 4px;
+  background: #eeeef0;
+}
+
+/* Capa verde recortada con la forma de las 5 celdas (5 px de separación).
+   Se revela de izquierda a derecha en 5 saltos, se sostiene llena y se apaga. */
+.charge {
+  position: absolute;
+  inset: 6px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #6fd497 0%, #4ac878 100%);
+  -webkit-mask: repeating-linear-gradient(
+    90deg,
+    #000 0 calc(20% - 4px),
+    transparent calc(20% - 4px) calc(20% + 1px)
+  );
+  mask: repeating-linear-gradient(
+    90deg,
+    #000 0 calc(20% - 4px),
+    transparent calc(20% - 4px) calc(20% + 1px)
+  );
+  clip-path: inset(0 100% 0 0);
+  animation: evkinCharge 3.8s linear infinite;
+}
+
+@keyframes evkinCharge {
+  0% {
+    clip-path: inset(0 100% 0 0);
+    opacity: 1;
+    animation-timing-function: steps(5, end);
+  }
+  62% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+  88% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+  97%,
+  100% {
+    clip-path: inset(0 0 0 0);
+    opacity: 0;
+  }
+}
+
+.batteryNub {
+  width: 6px;
+  height: 22px;
+  border-radius: 0 3px 3px 0;
+  background: #c9c9cf;
+}
+
+.batteryScale {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding-right: 10px;
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  color: #9a9a9f;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------- pausa fuera de pantalla */
+
+.section[data-playing="false"] .anim {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim {
+    animation: none !important;
+  }
+
+  .pulse {
+    stroke-dashoffset: -50;
+  }
+
+  .ledRing {
+    opacity: 1;
+  }
+
+  .charge {
+    clip-path: inset(0 0 0 0);
+  }
+
+  .card,
+  .card::before,
+  .spotlight {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   Tablet: 2 columnas, las cards anchas ocupan la fila entera
+   ============================================================ */
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .wide {
+    grid-column: span 2;
+    flex-direction: row-reverse;
+  }
+
+  .wide .visual {
+    flex: 1 1 54%;
+    min-height: 240px;
+    border-bottom: none;
+    border-left: 1px solid #f0f0f1;
+  }
+
+  .wide .body {
+    flex: 1 1 46%;
+    justify-content: center;
+    padding: 30px;
+  }
+}
+
+/* ============================================================
+   Desktop: damero de 3 columnas
+   ============================================================ */
+
+@media (min-width: 1000px) {
+  .section {
+    padding: 104px 32px 112px;
+  }
+
+  .header {
+    margin-bottom: 56px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: minmax(280px, auto);
+    gap: 20px;
+  }
+
+  .body {
+    padding: 28px;
+  }
+
+  .wide .body {
+    padding: 36px;
+  }
+
+  .wide .installSvg {
+    max-width: 400px;
+  }
+
+  .wide .battery {
+    max-width: 320px;
+  }
+}

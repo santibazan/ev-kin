@@ -1,13 +1,13 @@
 import NavbarUI from "../../UI/Header/NavbarUI"
 import FooterUI from "../../UI/Footer/FooterUI"
-import LandingUI from "@/Components/UI/Landing/LandingUI"
+import InstalacionUI from "@/Components/UI/Instalacion/InstalacionUI"
 
 
-export const LandingScreen = () => {
+export const InstalacionScreen = () => {
   return (
     <>
       <NavbarUI />
-      <LandingUI />
+      <InstalacionUI />
       <FooterUI />
     </>
   )

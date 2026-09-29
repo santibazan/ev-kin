@@ -1,0 +1,738 @@
+/* ============================================================
+   InstalacionUI — Red de instalación EV-KIN
+   Mobile-first. Escritorio a partir de 861px.
+   ============================================================ */
+
+.section,
+.section * {
+  box-sizing: border-box;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ffffff;
+  padding: 64px 20px 72px;
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+/* ---------------------------------------------- encabezado */
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  max-width: 720px;
+  margin-bottom: 34px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid #dcdce0;
+  background: #fafafa;
+  color: #6b6b70;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.eyebrowDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ac878;
+  box-shadow: 0 0 0 4px rgba(74, 200, 120, 0.16);
+}
+
+.heading {
+  margin: 0;
+  font-size: clamp(1.9rem, 6.4vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  color: #141414;
+  text-wrap: balance;
+}
+
+.lead {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #3a3a3f;
+  max-width: 600px;
+}
+
+.leadSecondary {
+  margin: 0;
+  /* En celular son diez renglones: centrado se lee mal, así que va alineado a la izquierda. */
+  text-align: left;
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: #6b6b70;
+  max-width: 640px;
+}
+
+/* ---------------------------------------------- ficha eléctrica */
+
+.ficha {
+  width: 100%;
+  max-width: 860px;
+  padding: 24px 20px 10px;
+  border-radius: 24px;
+  background: #101014;
+  color: #ffffff;
+  /* Halo verde tenue arriba a la derecha, para que no sea un rectángulo plano. */
+  background-image: radial-gradient(
+    120% 90% at 92% -10%,
+    rgba(74, 200, 120, 0.22),
+    transparent 60%
+  );
+}
+
+.fichaHead {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.fichaTitle {
+  margin: 0;
+  font-size: 15.5px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.fichaNote {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.fichaList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fichaRow {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  grid-template-areas:
+    "icon label"
+    ".    value";
+  column-gap: 12px;
+  row-gap: 3px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.fichaRow:last-child {
+  border-bottom: none;
+}
+
+.fichaIcon {
+  grid-area: icon;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.07);
+  color: #4ac878;
+}
+
+.iconGlyph {
+  width: 16px;
+  height: 16px;
+}
+
+.fichaLabel {
+  grid-area: label;
+  align-self: center;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.fichaValue {
+  grid-area: value;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #ffffff;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------- bloques */
+
+.block {
+  width: 100%;
+  max-width: 860px;
+  margin-top: 52px;
+}
+
+.blockTitle {
+  margin: 0 0 8px;
+  font-size: clamp(1.35rem, 5vw, 1.7rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: #141414;
+}
+
+.blockText {
+  margin: 0 0 20px;
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: #6b6b70;
+  max-width: 60ch;
+}
+
+/* ---------------------------------------------- los siete pasos */
+
+.steps {
+  display: flex;
+  flex-direction: column;
+}
+
+.step {
+  position: relative;
+}
+
+/* Riel vertical que une los pasos. */
+.step::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: #e7e7ea;
+}
+
+.step[data-last="true"]::before {
+  bottom: auto;
+  height: 35px;
+}
+
+.stepHeading {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.stepButton {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  width: 100%;
+  padding: 16px 0;
+  border: none;
+  background: none;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.stepMarker {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 37px;
+  height: 37px;
+  border-radius: 50%;
+  border: 1px solid #e4e4e7;
+  background: #ffffff;
+  color: #6b6b70;
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.stepGlyph {
+  width: 16px;
+  height: 16px;
+}
+
+.step[data-open="true"] .stepMarker,
+.stepButton:hover .stepMarker {
+  background: #141414;
+  border-color: #141414;
+  color: #ffffff;
+}
+
+.stepNumber {
+  flex-shrink: 0;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #b6b6bc;
+  font-variant-numeric: tabular-nums;
+}
+
+.stepTitle {
+  min-width: 0;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #141414;
+}
+
+.stepPanel {
+  padding-left: 50px;
+}
+
+.stepWrap {
+  overflow: hidden;
+}
+
+.stepBody {
+  padding-bottom: 20px;
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: #6b6b70;
+}
+
+.stepBody p {
+  margin: 0 0 10px;
+}
+
+.stepBody p:last-child {
+  margin-bottom: 0;
+}
+
+.stepIntro {
+  font-weight: 600;
+  color: #4a4a50;
+}
+
+/* ---------------------------------------------- listas con tilde */
+
+.checkList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: #6b6b70;
+}
+
+.checkList li {
+  position: relative;
+  padding-left: 26px;
+}
+
+.checkList li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.18em;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: rgba(74, 200, 120, 0.16);
+}
+
+/* Tilde dibujada con dos bordes rotados. */
+.checkList li::after {
+  content: "";
+  position: absolute;
+  left: 5.5px;
+  top: 0.42em;
+  width: 4px;
+  height: 7px;
+  border: solid #2f9c5c;
+  border-width: 0 1.7px 1.7px 0;
+  transform: rotate(42deg);
+}
+
+/* ---------------------------------------------- pestañas de montaje */
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.tab {
+  position: relative;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid #dcdce0;
+  background: #ffffff;
+  color: #6b6b70;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.tab:hover {
+  color: #141414;
+  border-color: #b6b6bc;
+}
+
+.tabActive,
+.tabActive:hover {
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.tabPill {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: #141414;
+}
+
+.tabLabel {
+  position: relative;
+  z-index: 1;
+}
+
+.montajeCard {
+  padding: 22px;
+  border-radius: 22px;
+  border: 1px solid #e7e7ea;
+  background: #fafafa;
+}
+
+.includes {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: rgba(74, 200, 120, 0.14);
+  color: #2f7d50;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.includesIcon {
+  width: 14px;
+  height: 14px;
+}
+
+.montajeText {
+  margin: 0 0 12px;
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: #6b6b70;
+}
+
+/* ---------------------------------------------- cierre comercial */
+
+.closing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 860px;
+  margin-top: 56px;
+  padding: 32px 22px;
+  border-radius: 26px;
+  border: 1px solid #e7e7ea;
+  background:
+    radial-gradient(110% 80% at 50% 0%, rgba(74, 200, 120, 0.1), transparent 62%),
+    #ffffff;
+}
+
+.closingText {
+  margin: 0;
+  font-size: clamp(1.05rem, 4.2vw, 1.3rem);
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+  color: #141414;
+  max-width: 44ch;
+  text-wrap: balance;
+}
+
+.chain {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chainItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chainChip {
+  padding: 9px 15px;
+  border-radius: 999px;
+  border: 1px solid #e4e4e7;
+  background: #fafafa;
+  color: #141414;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.chainPlus {
+  color: #b6b6bc;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.closingActions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 340px;
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 15px 26px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.primary {
+  background: #141414;
+  color: #ffffff;
+}
+
+.primary:hover {
+  background: #2a2a2e;
+  transform: translateY(-1px);
+}
+
+.secondary {
+  border: 1px solid #dcdce0;
+  background: #ffffff;
+  color: #141414;
+}
+
+.secondary:hover {
+  border-color: #b6b6bc;
+  background: #fafafa;
+}
+
+.arrow {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.25s ease;
+}
+
+.primary:hover .arrow {
+  transform: translateX(3px);
+}
+
+/* ---------------------------------------------- sumate a la red */
+
+.partner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  width: 100%;
+  max-width: 860px;
+  margin-top: 20px;
+  padding: 26px;
+  border-radius: 22px;
+  border: 1px dashed #dcdce0;
+  background: #fafafa;
+}
+
+.partnerTitle {
+  margin: 0 0 6px;
+  font-size: 17px;
+  font-weight: 700;
+  color: #141414;
+}
+
+.partnerText {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #6b6b70;
+  max-width: 52ch;
+}
+
+.partnerCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 14px 24px;
+  border-radius: 999px;
+  border: 1px solid #141414;
+  background: #ffffff;
+  color: #141414;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.partnerCta:hover {
+  background: #141414;
+  color: #ffffff;
+}
+
+.partnerIcon {
+  width: 16px;
+  height: 16px;
+}
+
+/* ---------------------------------------------- accesibilidad */
+
+.stepButton:focus-visible,
+.tab:focus-visible,
+.primary:focus-visible,
+.secondary:focus-visible,
+.partnerCta:focus-visible {
+  outline: 2px solid #141414;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stepMarker,
+  .tab,
+  .primary,
+  .secondary,
+  .partnerCta,
+  .arrow {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   Escritorio
+   ============================================================ */
+
+@media (min-width: 861px) {
+  .section {
+    padding: 104px 32px 112px;
+  }
+
+  .header {
+    margin-bottom: 44px;
+  }
+
+  .leadSecondary {
+    text-align: center;
+  }
+
+  .ficha {
+    padding: 30px 32px 14px;
+  }
+
+  .fichaRow {
+    grid-template-columns: 34px minmax(0, 1fr) auto;
+    grid-template-areas: "icon label value";
+    align-items: center;
+    column-gap: 16px;
+    padding: 15px 0;
+  }
+
+  .fichaValue {
+    text-align: right;
+    font-size: 15px;
+  }
+
+  .block {
+    margin-top: 72px;
+  }
+
+  /* Cada paso pasa a dos columnas: título a la izquierda, detalle a la derecha. */
+  .step {
+    display: grid;
+    grid-template-columns: 380px minmax(0, 1fr);
+    column-gap: 36px;
+    align-items: start;
+  }
+
+  .step[data-last="true"]::before {
+    height: 38px;
+  }
+
+  .stepButton {
+    padding: 18px 0;
+  }
+
+  .stepTitle {
+    font-size: 15.5px;
+  }
+
+  .stepPanel {
+    padding-left: 0;
+    padding-top: 18px;
+  }
+
+  .montajeCard {
+    padding: 30px 32px;
+  }
+
+  .checkList {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 28px;
+  }
+
+  .stepBody .checkList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .closing {
+    margin-top: 76px;
+    padding: 44px 40px;
+  }
+
+  .closingActions {
+    flex-direction: row;
+    width: auto;
+    max-width: none;
+  }
+
+  .partner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    padding: 30px 34px;
+  }
+}

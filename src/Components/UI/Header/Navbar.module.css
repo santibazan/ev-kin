@@ -1,104 +1,102 @@
-/* ---------- Mobile-first base styles ---------- */
+/* ============================================================
+   Navbar — versión compacta
+   Mobile-first. Menú horizontal a partir de 861px.
+
+   Usa exactamente las clases que ya referencia tu NavbarUI.tsx:
+   .header .inner .logo .logoMark .nav .navOpen .pill .menuToggle
+   ============================================================ */
+
+.header,
+.header * {
+  box-sizing: border-box;
+}
 
 .header {
-  position: relative;
-  display: flex;
-  align-items: center;
-  padding: 14px 20px;
-  background: #ffffff;
-  border-bottom: 1px solid #e7e7ea;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.82);
+  border-bottom: 1px solid rgba(20, 20, 20, 0.07);
   font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+  /* El blur hace que la barra flote sobre la foto del hero sin taparla. */
+  backdrop-filter: saturate(160%) blur(14px);
+  -webkit-backdrop-filter: saturate(160%) blur(14px);
+}
+
+/* Sin soporte de blur, la barra va opaca para que el texto no compita
+   con la imagen de abajo. */
+@supports not (backdrop-filter: blur(1px)) {
+  .header {
+    background: #ffffff;
+  }
 }
 
 .inner {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 16px;
   width: 100%;
-  max-width: 1280px;
+  max-width: 1200px;
+  height: 58px;
   margin: 0 auto;
-  gap: 12px;
+  padding: 0 18px;
 }
+
+/* ---------------------------------------------- logo */
 
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  color: #141414;
   flex-shrink: 0;
+  text-decoration: none;
 }
 
 .logoMark {
-  width: 200px;
-  height: auto;
   display: block;
+  height: 40px;
+  width: auto;
 }
 
-.logoText {
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: #141414;
-  text-transform: uppercase;
-}
+/* ---------------------------------------------- links */
 
-/* Botón hamburguesa: visible por default (mobile-first) */
-.menuToggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  padding: 0;
-  border: none;
-  background: transparent;
-  color: #141414;
-  cursor: pointer;
-  order: 3;
-}
-
-.menuToggle svg {
-  width: 22px;
-  height: 22px;
-}
-
-/* Nav: oculto por default, se abre como panel debajo del header */
 .nav {
-  display: none;
-  order: 4;
-}
-
-.navOpen {
-  display: flex;
-  flex-direction: column;
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 4px 18px 14px;
   background: #ffffff;
-  border-bottom: 1px solid #e7e7ea;
-  box-shadow: 0 12px 24px rgba(20, 20, 20, 0.06);
-  padding: 8px 20px 16px;
+  border-bottom: 1px solid rgba(20, 20, 20, 0.07);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+}
+
+.navOpen {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 
 .pill {
   position: relative;
-  display: inline-flex;
-  align-items: center;
-  padding: 12px 0;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  color: #6b6b70;
+  padding: 13px 0;
+  border-bottom: 1px solid #f1f1f3;
+  color: #4a4a50;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
   text-decoration: none;
-  white-space: nowrap;
-  border-bottom: 1px solid #f0f0f1;
   transition: color 0.2s ease;
 }
 
-.navOpen .pill:last-child {
+.pill:last-child {
   border-bottom: none;
 }
 
@@ -106,110 +104,125 @@
   color: #141414;
 }
 
-.pillActive {
+.pill[aria-current="page"] {
   color: #141414;
-}
-
-/* Región: se achica un poco en mobile */
-.region {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 7px 12px;
-  border-radius: 999px;
-  background: transparent;
-  border: 1px solid #dcdce0;
-  color: #3f3f43;
-  font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.04em;
+}
+
+/* ---------------------------------------------- botón de menú */
+
+.menuToggle {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  margin-right: -8px;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  color: #141414;
   cursor: pointer;
-  flex-shrink: 0;
-  order: 2;
-  transition: border-color 0.2s ease, background 0.2s ease;
+  transition: background 0.2s ease;
 }
 
-.region:hover {
-  border-color: #b6b6bc;
-  background: #fafafa;
+.menuToggle:hover {
+  background: rgba(20, 20, 20, 0.05);
 }
 
-.regionIcon {
-  width: 13px;
-  height: 13px;
-  color: #6b6b70;
+.menuToggle svg {
+  width: 21px;
+  height: 21px;
 }
 
-.regionCaret {
-  width: 9px;
-  height: 9px;
-  color: #9a9a9f;
+/* ---------------------------------------------- accesibilidad */
+
+.logo:focus-visible,
+.pill:focus-visible,
+.menuToggle:focus-visible {
+  outline: 2px solid #141414;
+  outline-offset: 4px;
+  border-radius: 4px;
 }
 
-/* ---------- Desktop (min-width) ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .nav,
+  .pill,
+  .menuToggle {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   Escritorio
+   ============================================================ */
 
 @media (min-width: 861px) {
-  .header {
-    padding: 0px 32px;
-  }
-
   .inner {
-    gap: 24px;
+    height: 64px;
+    padding: 0 32px;
   }
 
   .logoMark {
-    width: 300px;
+    height: 65px;
   }
 
-  .logoText {
-    font-size: 17px;
+  .nav {
+    position: static;
+    flex-direction: row;
+    align-items: center;
+    gap: 28px;
+    padding: 0;
+    background: none;
+    border-bottom: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  .pill {
+    padding: 4px 0;
+    border-bottom: none;
+    color: #6b6b70;
+    font-size: 13px;
+    font-weight: 500;
+    /* Sin mayúsculas ni tracking ancho: es lo que hacía pesado al header. */
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+
+  /* Subrayado fino que crece desde la izquierda. */
+  .pill::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 1px;
+    background: currentColor;
+    transition: width 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .pill:hover::after {
+    width: 100%;
+  }
+
+  .pill[aria-current="page"]::after {
+    width: 100%;
   }
 
   .menuToggle {
     display: none;
   }
+}
 
+/* Pantallas intermedias: los nombres largos aprietan, así que el aire
+   entre links se achica antes de llegar al menú hamburguesa. */
+@media (min-width: 861px) and (max-width: 1060px) {
   .nav {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 34px;
-    position: static;
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    padding: 0;
-    order: 2;
+    gap: 20px;
   }
 
   .pill {
-    padding: 6px 0;
-    border-bottom: none;
-  }
-
-  .pillActive::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -6px;
-    height: 2px;
-    background: linear-gradient(90deg, #9ca0a6, #e7e8ea 45%, #9ca0a6);
-  }
-
-  .region {
-    padding: 8px 14px;
     font-size: 12.5px;
-    order: 3;
-  }
-
-  .regionIcon {
-    width: 14px;
-    height: 14px;
-  }
-
-  .regionCaret {
-    width: 10px;
-    height: 10px;
   }
 }

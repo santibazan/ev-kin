@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Shield, Zap, Leaf } from "lucide-react";
 import styles from "./Nosotros.module.css";
+import ScrollToTop from "@/ScrollToTop";
 
 type Stat = {
   value: string;
@@ -60,35 +61,38 @@ export default function NosotrosUI({
   image,
 }: AboutUIProps) {
   return (
-    <section className={styles.section}>
-      <div className={styles.header}>
-        <span className={styles.eyebrow}>{eyebrow}</span>
-        <h2 className={styles.heading}>{title}</h2>
-        <p className={styles.mission}>{mission}</p>
-      </div>
+    <>
+      <section className={styles.section}>
+        <div className={styles.header}>
+          <span className={styles.eyebrow}>{eyebrow}</span>
+          <h2 className={styles.heading}>{title}</h2>
+          <p className={styles.mission}>{mission}</p>
+        </div>
 
-      {image && <div className={styles.imageWrap}>{image}</div>}
+        {image && <div className={styles.imageWrap}>{image}</div>}
 
-      {stats.length > 0 && (
-        <div className={styles.statsRow}>
-          {stats.map((stat) => (
-            <div key={stat.label} className={styles.statItem}>
-              <span className={styles.statValue}>{stat.value}</span>
-              <span className={styles.statLabel}>{stat.label}</span>
+        {stats.length > 0 && (
+          <div className={styles.statsRow}>
+            {stats.map((stat) => (
+              <div key={stat.label} className={styles.statItem}>
+                <span className={styles.statValue}>{stat.value}</span>
+                <span className={styles.statLabel}>{stat.label}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <div className={styles.valuesGrid}>
+          {values.map((value) => (
+            <div key={value.title} className={styles.valueCard}>
+              <div className={styles.valueIcon}>{value.icon}</div>
+              <h3 className={styles.valueTitle}>{value.title}</h3>
+              <p className={styles.valueDescription}>{value.description}</p>
             </div>
           ))}
         </div>
-      )}
-
-      <div className={styles.valuesGrid}>
-        {values.map((value) => (
-          <div key={value.title} className={styles.valueCard}>
-            <div className={styles.valueIcon}>{value.icon}</div>
-            <h3 className={styles.valueTitle}>{value.title}</h3>
-            <p className={styles.valueDescription}>{value.description}</p>
-          </div>
-        ))}
-      </div>
-    </section>
+      </section>
+      <ScrollToTop />
+    </>
   );
 }

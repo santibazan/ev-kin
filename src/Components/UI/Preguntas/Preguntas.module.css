@@ -1,24 +1,228 @@
-/* ---------- Mobile-first ---------- */
+/* ============================================================
+   PreguntasUI — FAQ con buscador y filtros por tema
+   Mobile-first.
+   ============================================================ */
+
+.section,
+.section * {
+  box-sizing: border-box;
+}
 
 .section {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   background: #ffffff;
-  padding: 40px 20px 64px;
+  padding: 64px 20px 72px;
   font-family: "Inter", "Segoe UI", system-ui, sans-serif;
 }
 
-.container {
+/* ---------------------------------------------- encabezado */
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  max-width: 640px;
+  margin-bottom: 32px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid #dcdce0;
+  background: #fafafa;
+  color: #6b6b70;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.eyebrowDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ac878;
+  box-shadow: 0 0 0 4px rgba(74, 200, 120, 0.16);
+}
+
+.heading {
+  margin: 0;
+  font-size: clamp(1.9rem, 6.4vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  color: #141414;
+  text-wrap: balance;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #6b6b70;
+  max-width: 520px;
+}
+
+/* ---------------------------------------------- buscador y filtros */
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
   width: 100%;
   max-width: 860px;
 }
 
-.title {
-  margin: 0 0 24px;
-  font-size: clamp(1.6rem, 6vw, 2.1rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
+.searchBox {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 16px;
+  width: 17px;
+  height: 17px;
+  color: #9a9a9f;
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 15px 44px 15px 44px;
+  border-radius: 999px;
+  border: 1px solid #dcdce0;
+  background: #fafafa;
   color: #141414;
+  font-family: inherit;
+  font-size: 15px;
+  transition: border-color 0.25s ease, background 0.25s ease;
+  appearance: none;
+}
+
+.searchInput::-webkit-search-cancel-button {
+  display: none;
+}
+
+.searchInput::placeholder {
+  color: #9a9a9f;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #141414;
+  background: #ffffff;
+}
+
+.clearButton {
+  position: absolute;
+  right: 12px;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: #e7e7ea;
+  color: #4a4a50;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.clearButton:hover {
+  background: #dcdce0;
+}
+
+.clearButton svg {
+  width: 14px;
+  height: 14px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter {
+  position: relative;
+  padding: 9px 14px;
+  border-radius: 999px;
+  border: 1px solid #dcdce0;
+  background: #ffffff;
+  color: #6b6b70;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.filter:hover {
+  color: #141414;
+  border-color: #b6b6bc;
+}
+
+.filterActive,
+.filterActive:hover {
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.filterPill {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: #141414;
+}
+
+.filterLabel {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.filterCount {
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: #f0f0f1;
+  color: #6b6b70;
+  font-size: 11px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.filterActive .filterCount {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+}
+
+/* ---------------------------------------------- resultados */
+
+.results {
+  width: 100%;
+  max-width: 860px;
+  margin-top: 28px;
+}
+
+.resultCount {
+  margin: 0 0 10px;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #9a9a9f;
 }
 
 .list {
@@ -27,6 +231,13 @@
 
 .item {
   border-bottom: 1px solid #e7e7ea;
+  overflow: hidden;
+}
+
+.questionHeading {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
 }
 
 .questionRow {
@@ -36,32 +247,41 @@
   gap: 16px;
   width: 100%;
   padding: 18px 0;
-  background: none;
   border: none;
+  background: none;
+  font-family: inherit;
   text-align: left;
   cursor: pointer;
 }
 
 .question {
-  font-size: 15px;
+  font-size: 15.5px;
   font-weight: 700;
-  color: #141414;
   line-height: 1.4;
+  color: #141414;
 }
 
 .icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
   flex-shrink: 0;
-  width: 22px;
-  height: 22px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #e4e4e7;
   color: #141414;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
 
 .icon svg {
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
+}
+
+.questionRow:hover .icon {
+  background: #141414;
+  border-color: #141414;
+  color: #ffffff;
 }
 
 .answerWrap {
@@ -69,33 +289,192 @@
 }
 
 .answer {
-  margin: 0 0 20px;
-  padding-right: 38px;
-  font-size: 14px;
+  padding: 0 38px 22px 0;
+  font-size: 14.5px;
   line-height: 1.7;
   color: #6b6b70;
 }
 
-/* ---------- Desktop ---------- */
+.answer p {
+  margin: 0 0 12px;
+}
+
+.answer p:last-child {
+  margin-bottom: 0;
+}
+
+.answer ul {
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.answer ul:last-child {
+  margin-bottom: 0;
+}
+
+.answer li {
+  position: relative;
+  padding-left: 20px;
+}
+
+/* Viñeta con el verde del anillo LED. */
+.answer li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.62em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4ac878;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 40px 20px;
+  text-align: center;
+  color: #6b6b70;
+  font-size: 14.5px;
+}
+
+.empty p {
+  margin: 0;
+}
+
+.resetButton {
+  padding: 11px 20px;
+  border-radius: 999px;
+  border: 1px solid #dcdce0;
+  background: #ffffff;
+  color: #141414;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.resetButton:hover {
+  border-color: #b6b6bc;
+  background: #fafafa;
+}
+
+/* ---------------------------------------------- bloque de ayuda */
+
+.help {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  width: 100%;
+  max-width: 860px;
+  margin-top: 40px;
+  padding: 26px;
+  border-radius: 22px;
+  border: 1px solid #e7e7ea;
+  background: #fafafa;
+}
+
+.helpTitle {
+  margin: 0 0 6px;
+  font-size: 17px;
+  font-weight: 700;
+  color: #141414;
+}
+
+.helpText {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #6b6b70;
+  max-width: 44ch;
+}
+
+.helpCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 14px 24px;
+  border-radius: 999px;
+  background: #141414;
+  color: #ffffff;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.25s ease;
+}
+
+.helpCta:hover {
+  background: #2a2a2e;
+}
+
+.helpIcon {
+  width: 16px;
+  height: 16px;
+}
+
+/* ---------------------------------------------- accesibilidad */
+
+.filter:focus-visible,
+.questionRow:focus-visible,
+.resetButton:focus-visible,
+.clearButton:focus-visible,
+.helpCta:focus-visible,
+.searchInput:focus-visible {
+  outline: 2px solid #141414;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon,
+  .filter,
+  .filterCount,
+  .searchInput {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   Desktop
+   ============================================================ */
 
 @media (min-width: 861px) {
   .section {
-    padding: 56px 32px 96px;
+    padding: 104px 32px 112px;
   }
 
-  .title {
-    margin-bottom: 32px;
+  .header {
+    margin-bottom: 40px;
+  }
+
+  .question {
+    font-size: 16.5px;
   }
 
   .questionRow {
     padding: 22px 0;
   }
 
-  .question {
-    font-size: 16px;
+  .answer {
+    font-size: 15px;
+    padding-right: 80px;
   }
 
-  .answer {
-    font-size: 14.5px;
+  .help {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    padding: 30px 34px;
   }
 }

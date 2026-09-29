@@ -1,0 +1,389 @@
+/* ============================================================
+   Hero — pieza gráfica `bienvenida.jpg` + banda de acciones
+   Mobile-first.
+   ============================================================ */
+
+.hero,
+.hero * {
+  box-sizing: border-box;
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+  overflow: hidden;
+}
+
+/* ---------------------------------------------- la foto */
+
+/* La foto se muestra ENTERA a cualquier ancho: nada de object-fit: cover,
+   porque recortaría el texto y los logos que la imagen ya trae adentro. */
+.plate {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #101014; /* evita el flash blanco mientras carga */
+  line-height: 0;
+}
+
+.photo {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Barrido de luz: cruza la imagen cada 9 s. Es lo único que se mueve solo. */
+.sheen {
+  position: absolute;
+  inset: -20% -40%;
+  pointer-events: none;
+  background: linear-gradient(
+    102deg,
+    rgba(255, 255, 255, 0) 42%,
+    rgba(255, 255, 255, 0.26) 50%,
+    rgba(255, 255, 255, 0) 58%
+  );
+  mix-blend-mode: screen;
+  transform: translate3d(-100%, 0, 0);
+  animation: evkinSheen 9s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+  will-change: transform;
+}
+
+@keyframes evkinSheen {
+  0% {
+    transform: translate3d(-100%, 0, 0);
+  }
+  58%,
+  100% {
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+/* ---------------------------------------------- banda inferior */
+
+.band {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  padding: 28px 20px 34px;
+}
+
+/* Resplandor tenue detrás de la banda, para que no quede un corte seco
+   entre la foto y el blanco. Respira muy despacio. */
+.band::before {
+  content: "";
+  position: absolute;
+  top: -70px;
+  left: 50%;
+  width: min(560px, 110%);
+  height: 200px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(74, 200, 120, 0.18), transparent 70%);
+  filter: blur(28px);
+  pointer-events: none;
+  animation: evkinBreathe 7s ease-in-out infinite;
+}
+
+@keyframes evkinBreathe {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.08);
+  }
+}
+
+.copy {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  max-width: 560px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid #dcdce0;
+  background: #fafafa;
+  color: #6b6b70;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ac878;
+  box-shadow: 0 0 0 4px rgba(74, 200, 120, 0.16);
+  animation: evkinPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes evkinPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 4px rgba(74, 200, 120, 0.16);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(74, 200, 120, 0.06);
+  }
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(1.9rem, 7.4vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.06;
+  color: #141414;
+  text-wrap: balance;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #6b6b70;
+}
+
+/* ---------------------------------------------- botones */
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 360px;
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 15px 26px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.primary {
+  background: #141414;
+  color: #ffffff;
+}
+
+.primary:hover {
+  background: #2a2a2e;
+  transform: translateY(-1px);
+}
+
+.secondary {
+  border: 1px solid #dcdce0;
+  background: #ffffff;
+  color: #141414;
+}
+
+.secondary:hover {
+  border-color: #b6b6bc;
+  background: #fafafa;
+}
+
+.arrow {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.25s ease;
+}
+
+.primary:hover .arrow {
+  transform: translateX(3px);
+}
+
+/* ---------------------------------------------- ficha rápida */
+
+.specs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  width: 100%;
+  max-width: 420px;
+  margin: 2px 0 0;
+  padding: 0;
+  list-style: none;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #e7e7ea; /* hace de líneas divisorias */
+  border: 1px solid #e7e7ea;
+}
+
+.spec {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 13px 10px;
+  background: #ffffff;
+}
+
+.specValue {
+  font-size: 14.5px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #141414;
+  font-variant-numeric: tabular-nums;
+}
+
+.specLabel {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #9a9a9f;
+}
+
+/* ---------------------------------------------- bajar */
+
+.scrollCue {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  margin-top: 2px;
+  color: #9a9a9f;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.scrollCue:hover {
+  color: #141414;
+}
+
+.scrollIcon {
+  width: 17px;
+  height: 17px;
+  animation: evkinNudge 2s ease-in-out infinite;
+}
+
+@keyframes evkinNudge {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+/* ---------------------------------------------- accesibilidad */
+
+.primary:focus-visible,
+.secondary:focus-visible,
+.scrollCue:focus-visible {
+  outline: 2px solid #141414;
+  outline-offset: 3px;
+}
+
+.hero[data-still="true"] .sheen,
+.hero[data-still="true"] .band::before,
+.hero[data-still="true"] .dot,
+.hero[data-still="true"] .scrollIcon {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheen,
+  .band::before,
+  .dot,
+  .scrollIcon {
+    animation: none;
+  }
+
+  .primary,
+  .secondary,
+  .arrow {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   Escritorio
+   ============================================================ */
+
+@media (min-width: 861px) {
+  /* Acá la imagen ya se lee sola: el titular sigue en el HTML (Google y
+     lectores de pantalla lo encuentran) pero no se dibuja dos veces. */
+  .copy {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    border: 0;
+    clip-path: inset(50%);
+  }
+
+  .band {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px 28px;
+    padding: 26px 32px 30px;
+  }
+
+  .band::before {
+    top: -80px;
+    width: min(900px, 90%);
+    height: 240px;
+  }
+
+  .actions {
+    flex-direction: row;
+    width: auto;
+    max-width: none;
+  }
+
+  .specs {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: auto;
+    max-width: none;
+    margin: 0;
+  }
+
+  .spec {
+    padding: 11px 20px;
+  }
+
+  .scrollCue {
+    flex-basis: 100%;
+    margin-top: 4px;
+  }
+}
