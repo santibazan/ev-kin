@@ -3,19 +3,6 @@ import { ArrowRight, ChevronDown } from "lucide-react";
 import bienvenida from "../../../Images/bienvenida.jpg";
 import styles from "./Hero.module.css";
 
-/**
- * Hero construido alrededor de la pieza gráfica `bienvenida.jpg`.
- *
- * La imagen ya trae el logo, el titular y los nombres de los modelos quemados
- * en los píxeles, así que acá NO se vuelve a dibujar nada de eso encima: la
- * foto se muestra entera (nunca recortada) y debajo queda una banda limpia con
- * lo único que la imagen no puede ser — botones reales y datos reales.
- *
- * En celular el texto de la imagen queda chico, por eso ahí sí aparece el
- * titular como HTML de verdad. En escritorio ese mismo <h1> sigue existiendo
- * para Google y para lectores de pantalla, pero se oculta visualmente.
- */
-
 const SPECS = [
   { value: "7 kW", label: "Potencia" },
   { value: "Tipo 2", label: "Conector" },
