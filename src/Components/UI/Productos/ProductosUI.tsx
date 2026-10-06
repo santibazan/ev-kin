@@ -1,114 +1,105 @@
-import { useState, type CSSProperties } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import styles from "./ProductosUI.module.css";
-import ScrollToTop from "../Scroll/ScrollToTop";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, Gauge, Minus, ShieldCheck, Sparkles } from "lucide-react";
+import VisorImagen from "../../UI/Blog/InstalarEnCasa/VisorImagen";
+import producto from "../../../Images/product_white.png";
+import ficha from "../../../Images/ficha-tecnica.jpg";
+import styles from "./Productos.module.css";
 
-export type ProductVariant = {
-  id: string;
-  /** Nombre del color, ej: "Blanco". */
-  label: string;
-  /** Color del círculo selector, ej: "#f4f4f5". */
-  swatch: string;
-  /** Foto del producto (importala y pasá la variable). Mejor con fondo transparente. */
-  image: string;
-};
-
-export type ProductSpec = {
-  /** Ej: "Potencia" */
-  label: string;
-  /** Ej: "7,4 kW" */
-  value: string;
-};
+/**
+ * ProductosUI — EV-KIN HOME 7 y HOME 7 DLB
+ *
+ * Los dos equipos son físicamente idénticos: misma foto, mismas
+ * especificaciones. Lo único que cambia es el balanceo dinámico de carga, así
+ * que el diseño pone todo el peso ahí en lugar de fingir diferencias.
+ *
+ * Sin precios: los pide el visitante por WhatsApp.
+ */
 
 export type Product = {
   id: string;
   name: string;
-  /** Frase corta opcional debajo del nombre. */
-  tagline?: string;
-  /** Ej: "Nuevo". */
-  badge?: string;
-  /** Ej: "USD 458". */
-  price?: string;
-  /** Precio anterior; si ambos son números, el descuento se calcula solo. */
-  originalPrice?: string;
-  /** Solo datos reales de la ficha técnica. Si no hay, no se muestra la tabla. */
-  specs?: ProductSpec[];
-  variants: ProductVariant[];
+  tagline: string;
+  /** Specs que comparten los dos equipos. */
+  chips: string[];
+  /** El bloque que marca la diferencia entre modelos. */
+  feature: { on: boolean; title: string; text: string };
+  fit: string;
+  /** Sello para el modelo destacado. */
+  tag?: string;
 };
+
+const PRODUCTOS: Product[] = [
+  {
+    id: "home-7",
+    name: "HOME 7",
+    tagline: "Carga de 7 kW en tu casa, controlada desde el celular.",
+    chips: ["7 kW", "Tipo 2", "Cable 5 m", "Wi-Fi", "IP65", "IK10"],
+    feature: {
+      on: false,
+      title: "Sin balanceo dinámico",
+      text: "Carga siempre a la potencia configurada. Pensado para instalaciones que ya tienen potencia disponible reservada para el cargador.",
+    },
+    fit: "instalaciones con potencia disponible",
+  },
+  {
+    id: "home-7-dlb",
+    name: "HOME 7 DLB",
+    tagline: "El mismo equipo, con balanceo dinámico de carga.",
+    chips: ["7 kW", "Tipo 2", "Cable 5 m", "Wi-Fi", "IP65", "IK10"],
+    feature: {
+      on: true,
+      title: "No te salta la térmica",
+      text: "Mide cuánta potencia está usando la casa y baja la carga del auto cuando prendés el aire acondicionado, el horno o la estufa. Cuando el consumo baja, vuelve a cargar a full.",
+    },
+    fit: "instalaciones con consumos variables y control de demanda",
+    tag: "Más elegido",
+  },
+];
 
 type ProductosUIProps = {
   eyebrow?: string;
   title?: string;
   subtitle?: string;
-  products: Product[];
-  /** Si lo pasás, el botón abre WhatsApp con el modelo y el color ya escritos. */
+  products?: Product[];
+  /** Número para los botones de presupuesto, en cualquier formato. */
   whatsapp?: string;
-  /** Alternativa a whatsapp: manejá vos el clic. */
-  onQuote?: (product: Product, variant: ProductVariant) => void;
-  ctaLabel?: string;
+  /** Imagen de la hoja de especificaciones. */
+  specSheet?: string;
+  photo?: string;
 };
-
-/** "USD 1.234,50" → 1234.5. Devuelve null si no hay un número claro. */
-function parsePrice(value?: string): number | null {
-  if (!value) return null;
-  const digits = value.replace(/[^\d.,]/g, "");
-  if (!digits) return null;
-  // Si la coma aparece después del punto, la coma es el decimal (formato 1.234,50).
-  const normalized =
-    digits.lastIndexOf(",") > digits.lastIndexOf(".")
-      ? digits.replace(/\./g, "").replace(",", ".")
-      : digits.replace(/,/g, "");
-  const n = Number(normalized);
-  return Number.isFinite(n) && n > 0 ? n : null;
-}
 
 export default function ProductosUI({
   eyebrow = "Nuestros productos",
-  title = "Un cargador pensado para tu casa",
-  subtitle = "Elegí el color que mejor combina con tu espacio. Nosotros nos encargamos del resto.",
-  products,
+  title = "Dos equipos, una sola diferencia",
+  subtitle = "El HOME 7 y el HOME 7 DLB son el mismo cargador: misma potencia, mismo conector, mismos materiales. Lo único que cambia es si el equipo se adapta o no al consumo de la casa.",
+  products = PRODUCTOS,
   whatsapp,
-  onQuote,
-  ctaLabel = "Pedir presupuesto",
+  specSheet = ficha,
+  photo = producto,
 }: ProductosUIProps) {
   const shouldReduceMotion = !!useReducedMotion();
-  const [productIndex, setProductIndex] = useState(0);
-  const [variantIndex, setVariantIndex] = useState(0);
 
-  const product = products[productIndex] ?? products[0];
-  if (!product || product.variants.length === 0) return null;
-  const variant = product.variants[variantIndex] ?? product.variants[0];
+  const digits = whatsapp ? whatsapp.replace(/\D/g, "") : "";
 
-  const now = parsePrice(product.price);
-  const before = parsePrice(product.originalPrice);
-  const discount = now && before && before > now ? Math.round((1 - now / before) * 100) : null;
-
-  const message = `Hola, quiero un presupuesto del ${product.name} en color ${variant.label.toLowerCase()}.`;
-  const whatsappHref = whatsapp
-    ? `https://wa.me/${whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(message)}`
-    : undefined;
-
-  function selectProduct(index: number) {
-    setProductIndex(index);
-    setVariantIndex(0);
+  function quoteHref(product: Product) {
+    if (!digits) return undefined;
+    const message = `Hola, quiero un presupuesto del EV-KIN ${product.name}.`;
+    return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
   }
 
-  const swap = shouldReduceMotion
-    ? { initial: false as const, animate: { opacity: 1 }, exit: { opacity: 0 } }
+  const reveal = shouldReduceMotion
+    ? {}
     : {
-        initial: { opacity: 0, y: 26, scale: 0.94, filter: "blur(8px)" },
-        animate: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
-        exit: { opacity: 0, y: -22, scale: 0.96, filter: "blur(6px)" },
+        initial: { opacity: 0, y: 22 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, margin: "-80px" },
       };
 
   return (
-    <section className={styles.section}>
+    <section className={styles.section} id="productos">
       <motion.div
         className={styles.header}
-        initial={shouldReduceMotion ? undefined : { opacity: 0, y: 22 }}
-        whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
+        {...reveal}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
         <span className={styles.eyebrow}>
@@ -119,164 +110,110 @@ export default function ProductosUI({
         <p className={styles.subtitle}>{subtitle}</p>
       </motion.div>
 
-      {products.length > 1 && (
-        <div className={styles.tabs} role="tablist" aria-label="Modelos">
-          {products.map((p, i) => (
-            <button
-              key={p.id}
-              type="button"
-              role="tab"
-              aria-selected={i === productIndex}
-              className={`${styles.tab} ${i === productIndex ? styles.tabActive : ""}`}
-              onClick={() => selectProduct(i)}
+      <div className={styles.grid}>
+        {products.map((product, index) => {
+          const href = quoteHref(product);
+          return (
+            <motion.article
+              key={product.id}
+              className={styles.card}
+              data-featured={product.tag ? "true" : undefined}
+              {...reveal}
+              transition={{
+                duration: 0.6,
+                delay: index * 0.1,
+                ease: [0.22, 1, 0.36, 1],
+              }}
             >
-              {i === productIndex && (
-                <motion.span
-                  layoutId="evkinProductTab"
-                  className={styles.tabPill}
-                  transition={shouldReduceMotion ? { duration: 0 } : { type: "spring", stiffness: 420, damping: 34 }}
+              {product.tag && (
+                <span className={styles.tag}>
+                  <Sparkles className={styles.tagIcon} aria-hidden="true" />
+                  {product.tag}
+                </span>
+              )}
+
+              <div className={styles.stage}>
+                <span className={styles.halo} aria-hidden="true" />
+                <img
+                  className={styles.photo}
+                  src={photo}
+                  alt={`Cargador EV-KIN ${product.name}`}
+                  loading="lazy"
+                  decoding="async"
                 />
-              )}
-              <span className={styles.tabLabel}>{p.name}</span>
-            </button>
-          ))}
-        </div>
-      )}
+                <span className={styles.floor} aria-hidden="true" />
+              </div>
 
-      <motion.div
-        className={styles.showcase}
-        style={{ "--tone": variant.swatch } as CSSProperties}
-        initial={shouldReduceMotion ? undefined : { opacity: 0, y: 30 }}
-        whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      >
-        {/* ---------- escenario */}
-        <div className={styles.stage}>
-          <span className={styles.stageGlow} aria-hidden="true" />
-          <span className={styles.ring} aria-hidden="true" />
-          <span className={styles.ringInner} aria-hidden="true" />
+              <div className={styles.body}>
+                <p className={styles.brand}>EV-KIN</p>
+                <h3 className={styles.name}>{product.name}</h3>
+                <p className={styles.tagline}>{product.tagline}</p>
 
-          {product.badge && <span className={styles.badge}>{product.badge}</span>}
-          {discount !== null && <span className={styles.discount}>-{discount}%</span>}
+                <ul className={styles.chips}>
+                  {product.chips.map((chip) => (
+                    <li key={chip} className={styles.chip}>
+                      {chip}
+                    </li>
+                  ))}
+                </ul>
 
-          <div className={styles.productArea}>
-          <div className={styles.photoWrap}>
-            <AnimatePresence mode="popLayout" initial={false}>
-              <motion.img
-                key={`${product.id}-${variant.id}`}
-                src={variant.image}
-                alt={`${product.name} color ${variant.label.toLowerCase()}`}
-                className={styles.photo}
-                {...swap}
-                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-              />
-            </AnimatePresence>
-          </div>
-          <span className={styles.floorShadow} aria-hidden="true" />
-          </div>
-        </div>
-
-        {/* ---------- información */}
-        <div className={styles.info}>
-          <div className={styles.titleBlock}>
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.h3
-                key={product.id}
-                className={styles.productName}
-                initial={shouldReduceMotion ? undefined : { opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={shouldReduceMotion ? undefined : { opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
-              >
-                {product.name}
-              </motion.h3>
-            </AnimatePresence>
-            {product.tagline && <p className={styles.tagline}>{product.tagline}</p>}
-          </div>
-
-          {(product.price || product.originalPrice) && (
-            <div className={styles.priceRow}>
-              {product.price && <span className={styles.price}>{product.price}</span>}
-              {product.originalPrice && (
-                <span className={styles.originalPrice}>{product.originalPrice}</span>
-              )}
-              {discount !== null && <span className={styles.saving}>Ahorrás {discount}%</span>}
-            </div>
-          )}
-
-          <div className={styles.colorBlock}>
-            <p className={styles.colorLabel}>
-              Color: <strong>{variant.label}</strong>
-            </p>
-            <div className={styles.swatches} role="radiogroup" aria-label="Color">
-              {product.variants.map((v, i) => {
-                const active = i === variantIndex;
-                return (
-                  <button
-                    key={v.id}
-                    type="button"
-                    role="radio"
-                    aria-checked={active}
-                    aria-label={v.label}
-                    className={styles.swatch}
-                    onClick={() => setVariantIndex(i)}
-                  >
-                    {active && (
-                      <motion.span
-                        layoutId={`evkinSwatch-${product.id}`}
-                        className={styles.swatchRing}
-                        transition={shouldReduceMotion ? { duration: 0 } : { type: "spring", stiffness: 500, damping: 34 }}
-                      />
-                    )}
-                    <span className={styles.swatchDot} style={{ background: v.swatch }} />
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {product.specs && product.specs.length > 0 && (
-            <dl className={styles.specs}>
-              {product.specs.map((spec) => (
-                <div key={spec.label} className={styles.specRow}>
-                  <dt>{spec.label}</dt>
-                  <dd>{spec.value}</dd>
+                <div
+                  className={styles.feature}
+                  data-on={product.feature.on ? "true" : undefined}
+                >
+                  <span className={styles.featureIcon} aria-hidden="true">
+                    {product.feature.on ? <ShieldCheck /> : <Minus />}
+                  </span>
+                  <div className={styles.featureCopy}>
+                    <p className={styles.featureTitle}>{product.feature.title}</p>
+                    <p className={styles.featureText}>{product.feature.text}</p>
+                  </div>
                 </div>
-              ))}
-            </dl>
-          )}
 
-          <div className={styles.actions}>
-            {whatsappHref ? (
-              <a
-                href={whatsappHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.cta}
-              >
-                {ctaLabel}
-                <ArrowRight className={styles.ctaIcon} />
-              </a>
-            ) : (
-              <button
-                type="button"
-                className={styles.cta}
-                onClick={() => onQuote?.(product, variant)}
-              >
-                {ctaLabel}
-                <ArrowRight className={styles.ctaIcon} />
-              </button>
-            )}
-            <p className={styles.ctaNote}>
-              {whatsappHref
-                ? "Te respondemos por WhatsApp con el modelo y el color que elegiste."
-                : "Te contactamos para coordinar la instalación."}
-            </p>
-          </div>
-        </div>
-      </motion.div>
-      <ScrollToTop />
+                <p className={styles.fit}>
+                  <Gauge className={styles.fitIcon} aria-hidden="true" />
+                  <span>
+                    Ideal para <strong>{product.fit}</strong>.
+                  </span>
+                </p>
+
+                <div className={styles.actions}>
+                  {href ? (
+                    <a
+                      className={styles.primary}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Pedir presupuesto
+                      <ArrowRight className={styles.arrow} aria-hidden="true" />
+                    </a>
+                  ) : (
+                    <a className={styles.primary} href="/soporte">
+                      Pedir presupuesto
+                      <ArrowRight className={styles.arrow} aria-hidden="true" />
+                    </a>
+                  )}
+
+                  <VisorImagen
+                    src={specSheet}
+                    label="Especificaciones"
+                    titulo="Hoja de especificaciones EV-KIN"
+                    nombreDescarga="ev-kin-especificaciones.jpg"
+                    alt="Hoja de especificaciones de los cargadores EV-KIN HOME 7 y HOME 7 DLB: 7 kW, 230 V AC, 32 A, conector Tipo 2, cable de 5 metros, Wi-Fi, IP65, IK10, y balanceo dinámico de carga solo en la versión DLB."
+                  />
+                </div>
+              </div>
+            </motion.article>
+          );
+        })}
+      </div>
+
+      <p className={styles.footnote}>
+        Conectividad Wi‑Fi a través de Smart Life / Tuya. Dos años de garantía para equipos
+        instalados por instaladores aprobados.
+      </p>
+
     </section>
   );
 }

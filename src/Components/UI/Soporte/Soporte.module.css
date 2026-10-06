@@ -1,182 +1,496 @@
-/* ---------- Mobile-first ---------- */
+/* ============================================================
+   SoporteUI
+   Mobile-first. Dos columnas a partir de 861px.
+   ============================================================ */
+
+.section,
+.section * {
+  box-sizing: border-box;
+}
 
 .section {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   background: #ffffff;
-  padding: 48px 20px 64px;
+  padding: 64px 20px 72px;
   font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+  scroll-margin-top: 90px;
 }
 
-.grid {
+/* ---------------------------------------------- encabezado */
+
+.header {
   display: flex;
   flex-direction: column;
-  gap: 44px;
-  width: 100%;
-  max-width: 1120px;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  max-width: 660px;
+  margin-bottom: 34px;
 }
 
-/* ----- Form column ----- */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid #dcdce0;
+  background: #fafafa;
+  color: #6b6b70;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
 
-.formColumn {
-  display: flex;
-  flex-direction: column;
+.eyebrowDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ac878;
+  box-shadow: 0 0 0 4px rgba(74, 200, 120, 0.16);
 }
 
 .title {
-  margin: 0 0 12px;
-  font-size: clamp(1.75rem, 7vw, 2.5rem);
+  margin: 0;
+  font-size: clamp(1.9rem, 6.4vw, 2.75rem);
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
   color: #141414;
+  text-wrap: balance;
 }
 
 .subtitle {
-  margin: 0 0 28px;
-  font-size: 14.5px;
-  line-height: 1.6;
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.65;
   color: #6b6b70;
-  max-width: 480px;
+}
+
+/* ---------------------------------------------- grilla */
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+  width: 100%;
+  max-width: 1000px;
+}
+
+/* ---------------------------------------------- formulario */
+
+.formCard {
+  min-width: 0;
+  padding: 24px 22px;
+  border-radius: 24px;
+  border: 1px solid #e7e7ea;
+  background: #fcfcfb;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
 }
 
 .row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+}
+
+.campo {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 7px;
+  min-width: 0;
+}
+
+.label {
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  color: #4a4a50;
+}
+
+.opcional {
+  font-weight: 500;
+  color: #9a9a9f;
 }
 
 .input,
 .textarea {
   width: 100%;
-  padding: 14px 16px;
-  border-radius: 12px;
-  border: 1px solid #dcdce0;
+  padding: 13px 15px;
+  border: 1px solid #e4e4e7;
+  border-radius: 14px;
   background: #ffffff;
   color: #141414;
-  font-size: 14px;
   font-family: inherit;
-  box-sizing: border-box;
-  transition: border-color 0.2s ease;
+  font-size: 15px;
+  line-height: 1.5;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.textarea {
+  min-height: 120px;
+  resize: vertical;
 }
 
 .input::placeholder,
 .textarea::placeholder {
-  color: #9a9a9f;
+  color: #b6b6bc;
+}
+
+.input:hover,
+.textarea:hover {
+  border-color: #cfcfd4;
 }
 
 .input:focus,
 .textarea:focus {
   outline: none;
   border-color: #141414;
+  box-shadow: 0 0 0 3px rgba(20, 20, 20, 0.08);
 }
 
-.textarea {
-  min-height: 160px;
-  resize: vertical;
+/* El rojo solo después de que la persona interactuó con el campo.
+   `:invalid` a secas pintaría de rojo los campos vacíos apenas carga la
+   página, que es agresivo y además desinforma: todavía no hizo nada mal. */
+.input:user-invalid,
+.textarea:user-invalid {
+  border-color: #d97066;
+  box-shadow: 0 0 0 3px rgba(217, 112, 102, 0.12);
 }
 
-.submitBtn {
-  align-self: flex-start;
-  margin-top: 6px;
-  padding: 14px 28px;
+.submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  padding: 15px 24px;
+  border: 1px solid #141414;
   border-radius: 999px;
-  border: none;
   background: #141414;
   color: #ffffff;
+  font-family: inherit;
   font-size: 12.5px;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: background 0.25s ease, border-color 0.25s ease;
 }
 
-.submitBtn:hover {
+.submit:hover {
+  background: #2a2a2e;
+  border-color: #2a2a2e;
+}
+
+.submitIcon {
+  width: 15px;
+  height: 15px;
+}
+
+.aviso {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.55;
+  text-align: center;
+  color: #9a9a9f;
+}
+
+/* ---------------------------------------------- confirmación */
+
+.exito {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  padding: 18px 4px;
+}
+
+.exitoIcono {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 4px;
+  border-radius: 50%;
+  background: rgba(74, 200, 120, 0.14);
+  color: #2f9c5c;
+}
+
+.exitoIcono svg {
+  width: 24px;
+  height: 24px;
+}
+
+.exitoTitulo {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #141414;
+}
+
+.exitoTexto {
+  margin: 0;
+  max-width: 42ch;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #6b6b70;
+}
+
+.exitoAcciones {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  width: 100%;
+  max-width: 320px;
+  margin-top: 8px;
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 14px 22px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.primary {
+  border: 1px solid #141414;
+  background: #141414;
+  color: #ffffff;
+}
+
+.primary:hover {
   background: #2a2a2e;
 }
 
-/* ----- Info column ----- */
+.secondary {
+  border: 1px solid #dcdce0;
+  background: #ffffff;
+  color: #141414;
+}
 
-.infoColumn {
+.secondary:hover {
+  border-color: #b6b6bc;
+  background: #fafafa;
+}
+
+/* ---------------------------------------------- información */
+
+.infoCard {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  padding: 26px 22px;
+  border-radius: 24px;
+  background: #101014;
+  color: rgba(255, 255, 255, 0.62);
+  background-image: radial-gradient(
+    120% 90% at 92% -10%,
+    rgba(74, 200, 120, 0.22),
+    transparent 60%
+  );
 }
 
 .infoHeading {
-  margin: 0 0 12px;
-  font-size: 19px;
+  margin: 0 0 8px;
+  font-size: 16px;
   font-weight: 800;
-  color: #141414;
+  letter-spacing: -0.015em;
+  color: #ffffff;
 }
 
-.infoText {
-  margin: 0 0 28px;
+.infoIntro {
+  margin: 0 0 22px;
   font-size: 13.5px;
   line-height: 1.6;
-  color: #6b6b70;
-  max-width: 420px;
+  color: rgba(255, 255, 255, 0.55);
 }
 
-.infoBlock {
-  padding: 18px 0;
-  border-top: 1px solid #e7e7ea;
+.infoList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.infoBlock:last-child {
-  border-bottom: 1px solid #e7e7ea;
+.infoItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  padding: 13px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.infoItem:last-child {
+  border-bottom: none;
+}
+
+.infoIcon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.07);
+  color: #4ac878;
+}
+
+.infoIcon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.infoCuerpo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
 }
 
 .infoLabel {
-  margin: 0 0 8px;
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #141414;
+  color: rgba(255, 255, 255, 0.42);
 }
 
-.infoLine {
-  margin: 0;
+.infoValor {
   font-size: 14px;
-  line-height: 1.7;
-  color: #6b6b70;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .infoLink {
-  color: #141414;
-  font-weight: 600;
-  text-decoration: underline;
-  text-underline-offset: 2px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: #ffffff;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: color 0.2s ease;
 }
 
-/* ---------- Desktop ---------- */
+.infoLink:hover {
+  color: #6fe3a0;
+}
+
+.infoNota {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  margin: 22px 0 0;
+  padding: 15px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.infoNotaIcon {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  color: #4ac878;
+}
+
+/* ---------------------------------------------- accesibilidad */
+
+.submit:focus-visible,
+.primary:focus-visible,
+.secondary:focus-visible,
+.input:focus-visible,
+.textarea:focus-visible {
+  outline: 2px solid #141414;
+  outline-offset: 3px;
+}
+
+.infoLink:focus-visible {
+  outline: 2px solid #4ac878;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .input,
+  .textarea,
+  .submit,
+  .primary,
+  .secondary,
+  .infoLink {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   Escritorio
+   ============================================================ */
 
 @media (min-width: 861px) {
   .section {
-    padding: 96px 32px 112px;
+    padding: 104px 32px 112px;
+  }
+
+  .header {
+    margin-bottom: 44px;
   }
 
   .grid {
-    flex-direction: row;
-    gap: 80px;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: 22px;
+    align-items: start;
   }
 
-  .formColumn {
-    flex: 1.2;
-  }
-
-  .infoColumn {
-    flex: 1;
-    padding-top: 4px;
+  .formCard {
+    padding: 32px;
   }
 
   .row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .submit {
+    width: auto;
+    align-self: flex-start;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .aviso {
+    text-align: left;
+  }
+
+  .infoCard {
+    padding: 32px 30px;
+  }
+
+  .exitoAcciones {
     flex-direction: row;
+    max-width: none;
   }
 }

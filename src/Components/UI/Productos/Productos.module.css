@@ -1,0 +1,451 @@
+/* ============================================================
+   ProductosUI — EV-KIN HOME 7 / HOME 7 DLB
+   Mobile-first. Dos columnas a partir de 861px.
+   ============================================================ */
+
+.section,
+.section * {
+  box-sizing: border-box;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ffffff;
+  padding: 64px 20px 72px;
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+/* ---------------------------------------------- encabezado */
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  max-width: 660px;
+  margin-bottom: 34px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid #dcdce0;
+  background: #fafafa;
+  color: #6b6b70;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.eyebrowDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ac878;
+  box-shadow: 0 0 0 4px rgba(74, 200, 120, 0.16);
+}
+
+.heading {
+  margin: 0;
+  font-size: clamp(1.9rem, 6.4vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  color: #141414;
+  text-wrap: balance;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.65;
+  color: #6b6b70;
+}
+
+/* ---------------------------------------------- grilla */
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+  width: 100%;
+  max-width: 940px;
+}
+
+/* ---------------------------------------------- tarjeta */
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 26px;
+  border: 1px solid #e7e7ea;
+  background: #ffffff;
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover {
+  border-color: #d3d3d8;
+  box-shadow: 0 18px 44px -28px rgba(20, 20, 20, 0.35);
+}
+
+.card[data-featured="true"] {
+  border-color: rgba(74, 200, 120, 0.55);
+  box-shadow: 0 0 0 1px rgba(74, 200, 120, 0.18), 0 22px 50px -30px rgba(47, 156, 92, 0.5);
+}
+
+.card[data-featured="true"]:hover {
+  border-color: rgba(74, 200, 120, 0.8);
+}
+
+.tag {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: #141414;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.tagIcon {
+  width: 13px;
+  height: 13px;
+  color: #6fe3a0;
+}
+
+/* ---------------------------------------------- foto */
+
+.stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 34px 20px 30px;
+  background: linear-gradient(170deg, #f7f7f8 0%, #fefefe 62%);
+  border-bottom: 1px solid #f0f0f1;
+}
+
+.halo {
+  position: absolute;
+  top: 18%;
+  left: 50%;
+  width: 240px;
+  height: 240px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(74, 200, 120, 0.16), transparent 72%);
+  filter: blur(22px);
+  pointer-events: none;
+}
+
+.photo {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: auto;
+  height: 210px;
+  max-width: 100%;
+  object-fit: contain;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card:hover .photo {
+  transform: translateY(-5px);
+}
+
+/* Sombra en el piso, para que el equipo no quede flotando. */
+.floor {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  width: 150px;
+  height: 16px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(20, 20, 20, 0.2), transparent 76%);
+  filter: blur(7px);
+  pointer-events: none;
+}
+
+/* ---------------------------------------------- contenido */
+
+.body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  padding: 22px;
+}
+
+.brand {
+  margin: 0 0 2px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #b6b6bc;
+}
+
+.name {
+  margin: 0 0 8px;
+  font-size: clamp(1.45rem, 5.6vw, 1.75rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: #141414;
+}
+
+.tagline {
+  margin: 0 0 16px;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #6b6b70;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 0 0 18px;
+  padding: 0;
+  list-style: none;
+}
+
+.chip {
+  padding: 6px 11px;
+  border-radius: 8px;
+  background: #f4f4f5;
+  color: #4a4a50;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------- la diferencia */
+
+.feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 15px;
+  border-radius: 16px;
+  border: 1px solid #edeef0;
+  background: #fafafa;
+}
+
+.feature[data-on="true"] {
+  border-color: rgba(74, 200, 120, 0.32);
+  background: rgba(74, 200, 120, 0.08);
+}
+
+.featureIcon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: #ececee;
+  color: #9a9a9f;
+}
+
+.feature[data-on="true"] .featureIcon {
+  background: #4ac878;
+  color: #ffffff;
+}
+
+.featureIcon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.featureCopy {
+  min-width: 0;
+}
+
+.featureTitle {
+  margin: 0 0 4px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #141414;
+}
+
+.feature[data-on="true"] .featureTitle {
+  color: #1f6b41;
+}
+
+.featureText {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #6b6b70;
+}
+
+.fit {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin: 14px 0 0;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: #6b6b70;
+}
+
+.fit strong {
+  color: #141414;
+  font-weight: 700;
+}
+
+.fitIcon {
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+  margin-top: 2px;
+  color: #b6b6bc;
+}
+
+/* ---------------------------------------------- botones */
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.primary {
+  border: 1px solid #141414;
+  background: #141414;
+  color: #ffffff;
+}
+
+.primary:hover {
+  background: #2a2a2e;
+  border-color: #2a2a2e;
+}
+
+.secondary {
+  border: 1px solid #dcdce0;
+  background: #ffffff;
+  color: #141414;
+}
+
+.secondary:hover {
+  border-color: #b6b6bc;
+  background: #fafafa;
+}
+
+.arrow,
+.secondaryIcon {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.25s ease;
+}
+
+.primary:hover .arrow {
+  transform: translateX(3px);
+}
+
+.footnote {
+  max-width: 940px;
+  margin: 22px 0 0;
+  font-size: 12.5px;
+  line-height: 1.6;
+  text-align: center;
+  color: #9a9a9f;
+}
+
+/* ---------------------------------------------- accesibilidad */
+
+.primary:focus-visible,
+.secondary:focus-visible {
+  outline: 2px solid #141414;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .photo,
+  .primary,
+  .secondary,
+  .arrow {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   Escritorio
+   ============================================================ */
+
+@media (min-width: 861px) {
+  .section {
+    padding: 104px 32px 112px;
+  }
+
+  .header {
+    margin-bottom: 44px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    align-items: stretch;
+  }
+
+  .stage {
+    padding: 40px 24px 34px;
+  }
+
+  .photo {
+    height: 250px;
+  }
+
+  .floor {
+    bottom: 26px;
+    width: 170px;
+  }
+
+  .body {
+    padding: 26px;
+  }
+
+}

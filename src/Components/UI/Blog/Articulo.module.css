@@ -1,0 +1,686 @@
+/* ============================================================
+   Articulo — estilos compartidos por las páginas de artículo del blog
+   Mobile-first. Ancho de lectura acotado en escritorio.
+   ============================================================ */
+
+.article,
+.article * {
+  box-sizing: border-box;
+}
+
+.article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ffffff;
+  padding: 40px 20px 72px;
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+  color: #3a3a3f;
+}
+
+/* ---------------------------------------------- cabecera */
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+  max-width: 740px;
+}
+
+.volver {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #9a9a9f;
+  font-size: 12.5px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.volver:hover {
+  color: #141414;
+}
+
+.volverIcon {
+  width: 14px;
+  height: 14px;
+}
+
+.categoria {
+  padding: 6px 13px;
+  border-radius: 999px;
+  background: rgba(74, 200, 120, 0.14);
+  color: #1f6b41;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.titulo {
+  margin: 0;
+  font-size: clamp(1.85rem, 6.6vw, 2.9rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.07;
+  color: #141414;
+  text-wrap: balance;
+}
+
+.bajada {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.65;
+  color: #6b6b70;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 12.5px;
+  color: #9a9a9f;
+}
+
+.metaSep {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #d4d4d8;
+}
+
+.metaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.metaIcon {
+  width: 13px;
+  height: 13px;
+}
+
+/* ---------------------------------------------- portada */
+
+.cover {
+  width: 100%;
+  max-width: 940px;
+  margin: 26px 0 30px;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #f2f2f4;
+  aspect-ratio: 16 / 9;
+}
+
+.cover[data-vacio="true"] {
+  background:
+    radial-gradient(120% 90% at 18% 15%, rgba(74, 200, 120, 0.3), transparent 62%),
+    linear-gradient(140deg, #1a1a1f 0%, #2c2c33 100%);
+}
+
+.coverImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------------------------------------------- cuerpo */
+
+.cuerpo {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  width: 100%;
+  max-width: 740px;
+}
+
+.bloque p {
+  margin: 0 0 14px;
+  font-size: 16px;
+  line-height: 1.75;
+  color: #3a3a3f;
+}
+
+.bloque p:last-child {
+  margin-bottom: 0;
+}
+
+.h2 {
+  margin: 0 0 14px;
+  font-size: clamp(1.3rem, 5vw, 1.6rem);
+  font-weight: 800;
+  letter-spacing: -0.028em;
+  line-height: 1.2;
+  color: #141414;
+}
+
+/* ---------------------------------------------- franjas horarias */
+
+.franjas {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 18px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.franjas li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 14px;
+  padding: 13px 16px;
+  border-radius: 14px;
+  border: 1px solid #edeef0;
+  background: #fcfcfb;
+}
+
+.franjaNombre {
+  font-size: 14px;
+  font-weight: 800;
+  color: #141414;
+}
+
+.franjaPrecio {
+  grid-row: 1 / 3;
+  grid-column: 2;
+  align-self: center;
+  font-size: 15px;
+  font-weight: 800;
+  color: #1f6b41;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.franjaHora {
+  grid-column: 1;
+  font-size: 12.5px;
+  color: #9a9a9f;
+}
+
+
+/* ---------------------------------------------- checklist numerada */
+
+.pasos {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: paso;
+}
+
+.pasos li {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  align-items: start;
+  gap: 4px 13px;
+  padding: 15px 17px;
+  border-radius: 16px;
+  border: 1px solid #edeef0;
+  background: #fcfcfb;
+}
+
+.pasos li::before {
+  counter-increment: paso;
+  content: counter(paso, decimal-leading-zero);
+  grid-row: 1 / 3;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #141414;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.pasoTitulo {
+  grid-column: 2;
+  align-self: center;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  color: #141414;
+}
+
+.pasoTexto {
+  grid-column: 2;
+  margin: 0 !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  color: #6b6b70 !important;
+}
+
+/* ---------------------------------------------- dato suelto */
+
+.dato {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 18px 0;
+  padding: 16px 18px;
+  border-left: 3px solid #4ac878;
+  border-radius: 0 14px 14px 0;
+  background: rgba(74, 200, 120, 0.07);
+}
+
+.datoValor {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #1f6b41;
+  font-variant-numeric: tabular-nums;
+}
+
+.datoTexto {
+  margin: 0 !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  color: #4a4a50 !important;
+}
+
+
+/* ---------------------------------------------- tarjetas de referencia */
+
+.tarjetas {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  margin: 20px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tarjeta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  padding: 17px 19px;
+  border-radius: 18px;
+  border: 1px solid #edeef0;
+  background: #fcfcfb;
+}
+
+.tarjeta[data-destacada="true"] {
+  border-color: rgba(74, 200, 120, 0.4);
+  background: rgba(74, 200, 120, 0.06);
+}
+
+.tarjetaCabecera {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tarjetaTitulo {
+  margin: 0 !important;
+  font-size: 15.5px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.015em;
+  line-height: 1.3 !important;
+  color: #141414 !important;
+}
+
+.tarjetaMeta {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: #1f6b41;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.tarjetaTexto {
+  margin: 0 !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  color: #6b6b70 !important;
+}
+
+.etiqueta {
+  align-self: flex-start;
+  margin-top: 2px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #141414;
+  color: #ffffff;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ---------------------------------------------- aviso */
+
+.aviso {
+  margin: 18px 0 0;
+  padding: 16px 18px;
+  border-radius: 16px;
+  border: 1px solid #f0e4c8;
+  background: #fdf9ef;
+}
+
+.aviso p {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: #6b5a33;
+}
+
+.avisoTitulo {
+  margin: 0 0 5px !important;
+  font-weight: 800;
+  color: #7a6224;
+}
+
+/* ---------------------------------------------- ejemplo */
+
+.ejemplo {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin: 18px 0;
+  padding: 0;
+  list-style: none;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #e7e7ea;
+  background: #e7e7ea;
+}
+
+.ejemplo li {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 14px 16px;
+  background: #ffffff;
+}
+
+.ejemploLabel {
+  font-size: 13.5px;
+  color: #6b6b70;
+}
+
+.ejemploValor {
+  font-size: 16px;
+  font-weight: 800;
+  color: #141414;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------- tabla */
+
+.tablaScroll {
+  margin: 4px 0 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 16px;
+  border: 1px solid #e7e7ea;
+}
+
+.tabla {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  text-align: left;
+}
+
+.tabla thead th {
+  padding: 13px 16px;
+  background: #fafafa;
+  border-bottom: 1px solid #e7e7ea;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6b6b70;
+}
+
+.tabla tbody th {
+  width: 26%;
+  padding: 13px 16px;
+  font-weight: 700;
+  color: #141414;
+  vertical-align: top;
+}
+
+.tabla td {
+  padding: 13px 16px;
+  line-height: 1.55;
+  color: #6b6b70;
+  vertical-align: top;
+}
+
+.tabla tbody tr + tr th,
+.tabla tbody tr + tr td {
+  border-top: 1px solid #f0f0f1;
+}
+
+/* ---------------------------------------------- lista */
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin: 16px 0;
+  padding: 0;
+  list-style: none;
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: #3a3a3f;
+}
+
+.lista li {
+  position: relative;
+  padding-left: 22px;
+}
+
+.lista li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.62em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4ac878;
+}
+
+/* ---------------------------------------------- cierre */
+
+.cierre {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 26px;
+  border-radius: 22px;
+  border: 1px solid #e7e7ea;
+  background:
+    radial-gradient(110% 80% at 50% 0%, rgba(74, 200, 120, 0.1), transparent 62%),
+    #fcfcfb;
+}
+
+.cierreTitulo {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #141414;
+}
+
+.cierreTexto {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: #6b6b70;
+}
+
+.cierreAcciones {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  width: 100%;
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 14px 22px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.primary {
+  border: 1px solid #141414;
+  background: #141414;
+  color: #ffffff;
+}
+
+.primary:hover {
+  background: #2a2a2e;
+}
+
+.secondary {
+  border: 1px solid #dcdce0;
+  background: #ffffff;
+  color: #141414;
+}
+
+.secondary:hover {
+  border-color: #b6b6bc;
+  background: #fafafa;
+}
+
+.arrow,
+.secondaryIcon {
+  width: 15px;
+  height: 15px;
+}
+
+/* ---------------------------------------------- fuentes */
+
+.fuentes {
+  padding-top: 26px;
+  border-top: 1px solid #eeeef0;
+}
+
+.fuentesTitulo {
+  margin: 0 0 4px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9a9a9f;
+}
+
+.fuentesNota {
+  margin: 0 0 12px;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #9a9a9f;
+}
+
+.fuentes ul {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fuentes a {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #4a4a50;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: #d4d4d8;
+}
+
+.fuentes a:hover {
+  color: #141414;
+  text-decoration-color: #141414;
+}
+
+/* ---------------------------------------------- accesibilidad */
+
+.volver:focus-visible,
+.primary:focus-visible,
+.secondary:focus-visible,
+.fuentes a:focus-visible {
+  outline: 2px solid #141414;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .volver,
+  .primary,
+  .secondary {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   Escritorio
+   ============================================================ */
+
+@media (min-width: 861px) {
+  .article {
+    padding: 56px 32px 112px;
+  }
+
+  .cover {
+    margin: 34px 0 44px;
+    border-radius: 26px;
+  }
+
+  .cuerpo {
+    gap: 44px;
+  }
+
+  .bloque p {
+    font-size: 17px;
+  }
+
+  .franjas li {
+    padding: 15px 20px;
+  }
+
+  .tarjetas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cierre {
+    padding: 34px;
+  }
+
+  .cierreAcciones {
+    flex-direction: row;
+    width: auto;
+  }
+}

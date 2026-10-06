@@ -1,0 +1,469 @@
+/* ============================================================
+   CalculadoraCarga
+   Mobile-first. Dos columnas de entradas a partir de 861px.
+   ============================================================ */
+
+.card,
+.card * {
+  box-sizing: border-box;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 22px;
+  border-radius: 24px;
+  border: 1px solid #e7e7ea;
+  background: #fcfcfb;
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+/* ---------------------------------------------- encabezado */
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.title {
+  margin: 0 0 6px;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #141414;
+}
+
+.lead {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #6b6b70;
+}
+
+.reset {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 8px;
+  padding: 9px 14px;
+  border: 1px solid #e4e4e7;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #4a4a50;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.reset:hover {
+  border-color: #b6b6bc;
+  color: #141414;
+}
+
+.resetIcon {
+  width: 13px;
+  height: 13px;
+}
+
+/* ---------------------------------------------- entradas */
+
+.campos {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+}
+
+/* Etiqueta arriba y valor debajo: puestos uno al lado del otro se pisaban
+   cuando la columna se angosta. */
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.campoLabel {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #9a9a9f;
+}
+
+.campoValor {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  color: #141414;
+  font-variant-numeric: tabular-nums;
+}
+
+.range {
+  width: 100%;
+  height: 22px;
+  margin: 6px 0 0;
+  appearance: none;
+  background: none;
+  cursor: pointer;
+}
+
+.range::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 999px;
+  background: #e4e4e7;
+}
+
+.range::-moz-range-track {
+  height: 4px;
+  border-radius: 999px;
+  background: #e4e4e7;
+}
+
+.range::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-top: -7px;
+  border: none;
+  border-radius: 50%;
+  background: #141414;
+  box-shadow: 0 0 0 3px #ffffff, 0 1px 4px rgba(20, 20, 20, 0.3);
+}
+
+.range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border: none;
+  border-radius: 50%;
+  background: #141414;
+  box-shadow: 0 0 0 3px #ffffff, 0 1px 4px rgba(20, 20, 20, 0.3);
+}
+
+/* ---------------------------------------------- resultado */
+
+.resultado {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+}
+
+.resultadoBloque {
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid #edeef0;
+  background: #ffffff;
+}
+
+.resultadoBloque[data-destacado="true"] {
+  border-color: rgba(47, 156, 92, 0.32);
+  background: rgba(47, 156, 92, 0.07);
+}
+
+.resultadoLabel {
+  margin: 0 0 4px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9a9a9f;
+}
+
+.resultadoValor {
+  margin: 0;
+  font-size: clamp(1.55rem, 7vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  color: #141414;
+  font-variant-numeric: tabular-nums;
+}
+
+.resultadoBloque[data-destacado="true"] .resultadoValor {
+  color: #1f6b41;
+}
+
+.resultadoNota {
+  margin: 5px 0 0;
+  font-size: 12.5px;
+  color: #6b6b70;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------- barras */
+
+.grafico {
+  padding-top: 2px;
+}
+
+.graficoTitulo {
+  margin: 0 0 14px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #9a9a9f;
+}
+
+.barras {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.barraCabecera {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.barraLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #3a3a3f;
+}
+
+.punto {
+  flex-shrink: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.barraMonto {
+  font-size: 14px;
+  font-weight: 800;
+  color: #141414;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* La pista marca el 100%; la barra crece dentro. */
+.pista {
+  width: 100%;
+  height: 12px;
+  border-radius: 6px;
+  background: #eeeef0;
+  overflow: hidden;
+}
+
+.barra {
+  height: 100%;
+  border-radius: 6px;
+}
+
+.barraDetalle {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: #9a9a9f;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------- tarifas editables */
+
+.ajustesToggle {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 9px;
+  padding: 11px 16px;
+  border: 1px solid #e4e4e7;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #141414;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.ajustesToggle:hover {
+  border-color: #b6b6bc;
+  background: #fafafa;
+}
+
+.ajustesIcon {
+  width: 15px;
+  height: 15px;
+}
+
+.ajustes {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+}
+
+.grupo {
+  min-width: 0;
+  margin: 0;
+  padding: 16px;
+  border: 1px solid #edeef0;
+  border-radius: 18px;
+  background: #ffffff;
+}
+
+.grupoTitulo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  margin-bottom: 12px;
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #141414;
+}
+
+.grupoIcon {
+  width: 15px;
+  height: 15px;
+  color: #4ac878;
+}
+
+.opciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.opcion {
+  padding: 7px 11px;
+  border: 1px solid #e4e4e7;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #6b6b70;
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.opcion:hover {
+  border-color: #b6b6bc;
+  color: #141414;
+}
+
+.opcionActiva,
+.opcionActiva:hover {
+  background: #141414;
+  border-color: #141414;
+  color: #ffffff;
+}
+
+.numero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-top: 1px solid #f2f2f4;
+  font-size: 13px;
+  color: #4a4a50;
+}
+
+.numero span {
+  min-width: 0;
+}
+
+.numero input {
+  flex-shrink: 0;
+  width: 96px;
+  padding: 8px 10px;
+  border: 1px solid #e4e4e7;
+  border-radius: 10px;
+  background: #fcfcfb;
+  color: #141414;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.numero input:focus {
+  outline: none;
+  border-color: #141414;
+  background: #ffffff;
+}
+
+.ayuda {
+  margin: 10px 0 0;
+  font-size: 11.5px;
+  line-height: 1.55;
+  color: #9a9a9f;
+}
+
+.pie {
+  margin: 0;
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: #9a9a9f;
+}
+
+/* ---------------------------------------------- accesibilidad */
+
+.reset:focus-visible,
+.ajustesToggle:focus-visible,
+.opcion:focus-visible,
+.range:focus-visible,
+.numero input:focus-visible {
+  outline: 2px solid #141414;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reset,
+  .ajustesToggle,
+  .opcion {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   Escritorio
+   ============================================================ */
+
+@media (min-width: 861px) {
+  .card {
+    gap: 26px;
+    padding: 30px 32px;
+  }
+
+  .head {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .campos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px 28px;
+  }
+
+  .resultado {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .resultadoBloque {
+    padding: 20px 22px;
+  }
+
+  .ajustes {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

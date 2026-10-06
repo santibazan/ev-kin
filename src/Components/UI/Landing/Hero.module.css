@@ -35,24 +35,8 @@
   height: auto;
 }
 
-/* Barrido de luz: cruza la imagen cada 9 s. Es lo único que se mueve solo. */
-.sheen {
-  position: absolute;
-  inset: -20% -40%;
-  pointer-events: none;
-  background: linear-gradient(
-    102deg,
-    rgba(255, 255, 255, 0) 42%,
-    rgba(255, 255, 255, 0.26) 50%,
-    rgba(255, 255, 255, 0) 58%
-  );
-  mix-blend-mode: screen;
-  transform: translate3d(-100%, 0, 0);
-  animation: evkinSheen 9s cubic-bezier(0.45, 0, 0.25, 1) infinite;
-  will-change: transform;
-}
 
-@keyframes evkinSheen {
+/* @keyframes evkinSheen {
   0% {
     transform: translate3d(-100%, 0, 0);
   }
@@ -60,7 +44,7 @@
   100% {
     transform: translate3d(100%, 0, 0);
   }
-}
+} */
 
 /* ---------------------------------------------- banda inferior */
 
@@ -309,7 +293,6 @@
   outline-offset: 3px;
 }
 
-.hero[data-still="true"] .sheen,
 .hero[data-still="true"] .band::before,
 .hero[data-still="true"] .dot,
 .hero[data-still="true"] .scrollIcon {
@@ -317,7 +300,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .sheen,
   .band::before,
   .dot,
   .scrollIcon {

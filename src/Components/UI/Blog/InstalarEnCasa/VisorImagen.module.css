@@ -1,0 +1,300 @@
+/* ============================================================
+   VisorImagen — miniatura o botón + ventana con la imagen grande
+   ============================================================ */
+
+.boton,
+.figura,
+.overlay,
+.boton *,
+.figura *,
+.overlay * {
+  box-sizing: border-box;
+}
+
+/* ---------------------------------------------- disparador: botón */
+
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  padding: 14px 20px;
+  border: 1px solid #dcdce0;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #141414;
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.boton:hover {
+  border-color: #b6b6bc;
+  background: #fafafa;
+}
+
+.botonIcon {
+  width: 15px;
+  height: 15px;
+}
+
+/* ---------------------------------------------- disparador: miniatura */
+
+.figura {
+  margin: 20px 0;
+}
+
+.miniatura {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 1px solid #e7e7ea;
+  border-radius: 18px;
+  background: #fcfcfb;
+  overflow: hidden;
+  cursor: zoom-in;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.miniatura:hover {
+  border-color: #b6b6bc;
+  box-shadow: 0 16px 36px -26px rgba(20, 20, 20, 0.5);
+}
+
+.miniatura img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.lupa {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: rgba(20, 20, 20, 0.86);
+  color: #ffffff;
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.lupaIcon {
+  width: 14px;
+  height: 14px;
+}
+
+.epigrafe {
+  margin: 10px 2px 0;
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: #9a9a9f;
+}
+
+/* ---------------------------------------------- la ventana */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 14px;
+  background: rgba(12, 12, 14, 0.74);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1100px;
+  max-height: 92vh;
+  border-radius: 20px;
+  background: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.5);
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+.barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-shrink: 0;
+  padding: 12px 14px;
+  border-bottom: 1px solid #ededf0;
+}
+
+.titulo {
+  margin: 0;
+  min-width: 0;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #141414;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.herramientas {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 6px;
+}
+
+.herramienta {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 11px;
+  border: 1px solid #e4e4e7;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #4a4a50;
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.herramienta:hover {
+  border-color: #b6b6bc;
+  color: #141414;
+  background: #fafafa;
+}
+
+.herramientaIcon {
+  width: 14px;
+  height: 14px;
+}
+
+/* En celular las etiquetas no entran: quedan solo los íconos. */
+.herramientaLabel {
+  display: none;
+}
+
+.cerrar {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: #f0f0f1;
+  color: #141414;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.cerrar:hover {
+  background: #e2e2e6;
+}
+
+.cerrar svg {
+  width: 17px;
+  height: 17px;
+}
+
+.scroll {
+  display: grid;
+  place-items: center;
+  flex: 1;
+  min-height: 0;
+  padding: 12px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  background: #f6f6f7;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Por defecto la imagen entra entera en pantalla. */
+.imagen {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: calc(92vh - 110px);
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+/* "Ampliar": ancho fijo, y se lee scrolleando. En celular eso obliga a
+   moverse en los dos ejes, que es lo que hace legible un esquema.
+   `place-items: start` evita que el centrado recorte el borde izquierdo. */
+.scroll[data-ampliado="true"] {
+  place-items: start;
+}
+
+.scroll[data-ampliado="true"] .imagen {
+  width: 1100px;
+  max-width: none;
+  height: auto;
+  max-height: none;
+}
+
+/* ---------------------------------------------- accesibilidad */
+
+.scroll:focus-visible,
+.boton:focus-visible,
+.miniatura:focus-visible,
+.herramienta:focus-visible,
+.cerrar:focus-visible {
+  outline: 2px solid #141414;
+  outline-offset: 3px;
+}
+
+.miniatura:focus-visible {
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boton,
+  .miniatura,
+  .herramienta,
+  .cerrar {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   Escritorio
+   ============================================================ */
+
+@media (min-width: 861px) {
+  .herramientaLabel {
+    display: inline;
+  }
+
+  .barra {
+    padding: 14px 18px;
+  }
+
+  .scroll {
+    padding: 18px;
+  }
+
+  .lupa {
+    right: 16px;
+    bottom: 16px;
+  }
+}

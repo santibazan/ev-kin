@@ -22,6 +22,15 @@
   /* El blur hace que la barra flote sobre la foto del hero sin taparla. */
   backdrop-filter: saturate(160%) blur(14px);
   -webkit-backdrop-filter: saturate(160%) blur(14px);
+  /* Se esconde al bajar y vuelve al subir. `will-change` mantiene la barra en
+     su propia capa, así el navegador no repinta la página entera al moverla. */
+  transform: translateY(0);
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.header[data-oculto="true"] {
+  transform: translateY(-100%);
 }
 
 /* Sin soporte de blur, la barra va opaca para que el texto no compita
@@ -40,7 +49,7 @@
   gap: 16px;
   width: 100%;
   max-width: 1200px;
-  height: 58px;
+  height: 62px;
   margin: 0 auto;
   padding: 0 18px;
 }
@@ -56,7 +65,7 @@
 
 .logoMark {
   display: block;
-  height: 40px;
+  height: 50px;
   width: auto;
 }
 
@@ -145,6 +154,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .header,
   .nav,
   .pill,
   .menuToggle {
@@ -158,19 +168,19 @@
 
 @media (min-width: 861px) {
   .inner {
-    height: 64px;
+    height: 80px;
     padding: 0 32px;
   }
 
   .logoMark {
-    height: 65px;
+    height: 100px;
   }
 
   .nav {
     position: static;
     flex-direction: row;
     align-items: center;
-    gap: 28px;
+    gap: 30px;
     padding: 0;
     background: none;
     border-bottom: none;
@@ -183,7 +193,7 @@
     padding: 4px 0;
     border-bottom: none;
     color: #6b6b70;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 500;
     /* Sin mayúsculas ni tracking ancho: es lo que hacía pesado al header. */
     letter-spacing: 0;

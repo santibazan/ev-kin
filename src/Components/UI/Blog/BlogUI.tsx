@@ -9,6 +9,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { ArrowUpRight, ArrowRight, Clock } from "lucide-react";
+import { useNavigate } from "react-router";
 import styles from "./Blog.module.css";
 import blog1 from "../../../Images/blog-cover-1.jpg"
 import blog2 from "../../../Images/blog-cover-2.jpg"
@@ -51,7 +52,7 @@ const DEFAULT_POSTS: BlogPost[] = [
     date: "2026-08-28",
     readingTime: "6 min",
     image: blog1,
-    href: "#",
+    href: "/blog/casa-o-red-publica",
   },
   {
     id: "tipos-de-cargadores",
@@ -62,7 +63,7 @@ const DEFAULT_POSTS: BlogPost[] = [
     date: "2026-08-14",
     readingTime: "8 min",
     image: blog2,
-    href: "#",
+    href: "/blog/tipos-de-cargadores",
   },
   {
     id: "calculadora-tiempo-carga",
@@ -73,7 +74,7 @@ const DEFAULT_POSTS: BlogPost[] = [
     date: "2026-07-30",
     readingTime: "4 min",
     image: blog3,
-    href: "#",
+    href: "/blog/tiempo-de-carga",
   },
   {
     id: "instalacion-en-casa",
@@ -84,7 +85,7 @@ const DEFAULT_POSTS: BlogPost[] = [
     date: "2026-07-11",
     readingTime: "5 min",
     image: blog4,
-    href: "#",
+    href: "/blog/antes-de-instalar",
   },
 ];
 
@@ -110,6 +111,7 @@ export default function BlogUI({
   onPostClick,
 }: BlogUIProps) {
   const shouldReduceMotion = useReducedMotion();
+  const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState(allLabel);
 
   const categories = useMemo(
@@ -164,6 +166,12 @@ export default function BlogUI({
       if (onPostClick) {
         event.preventDefault();
         onPostClick(post);
+        return;
+      }
+      // Rutas internas: navegar con el router para no recargar la página.
+      if (post.href?.startsWith("/")) {
+        event.preventDefault();
+        navigate(post.href);
       }
     };
   }

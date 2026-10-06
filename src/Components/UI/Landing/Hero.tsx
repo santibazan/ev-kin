@@ -1,6 +1,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
-import bienvenida from "../../../Images/bienvenida.jpg";
+import bienvenida from "../../../Images/cargador-en-casa.jpg";
+// import bienvenida from "../../../Images/bienvenida.jpg";
 import styles from "./Hero.module.css";
 
 const SPECS = [
@@ -25,7 +26,7 @@ export default function Hero() {
       <div className={styles.plate}>
         <motion.img
           src={bienvenida}
-          alt="Dos cargadores EV-KIN HOME 7 instalados en la pared de una casa moderna, con un auto eléctrico estacionado al lado."
+          alt="cargadores EV-KIN HOME 7 instalado en la pared de una casa moderna, con un auto eléctrico estacionado al lado."
           className={styles.photo}
           width={2400}
           height={1000}
@@ -34,8 +35,6 @@ export default function Hero() {
           animate={shouldReduceMotion ? undefined : { opacity: 1 }}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         />
-        {/* Brillo que cruza la foto cada tanto: el único movimiento permanente. */}
-        <span className={styles.sheen} aria-hidden="true" />
       </div>
 
       <div className={styles.band}>
